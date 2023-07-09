@@ -9,7 +9,7 @@ function Home() {
     const [loginModalActive, setLoginModalActive] = useState(false)
 
     return (
-        <div className="App11">
+        <div className="Home">
             <h1>Home page</h1>
             <button className={"registration-btn"} onClick={() => setRegistrationModalActive(true)}>Регистрация</button>
             <MyModal active={registrationModalActive} setActive={setRegistrationModalActive}>

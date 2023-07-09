@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import MyButton from "./components/MyButton/MyButton";
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Home from "./Pages/Home"

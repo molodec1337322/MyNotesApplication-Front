@@ -5,7 +5,6 @@ import { DOMEN_SERVER, DOMEN_SITE } from '../../config/const';
 import {AuthContext} from "../../context";
 
 function Login(){
-    console.log(AuthContext)
     const {isAuth, setIsAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
@@ -72,4 +71,4 @@ function Login(){
     )
 }
 
-export default Login()
+export default Login;
