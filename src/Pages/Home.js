@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 import MyModal from "../Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
 
 function Home() {
@@ -11,30 +11,50 @@ function Home() {
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
 
+    function logout (){
+        setAuth(prev => {
+            return{
+                ...prev,
+                token: null,
+                username: null,
+                isAuth: false
+            }
+        })
+    }
+
+    let buttons
+
+    if(auth.isAuth){
+        buttons =
+            <Nav className="justify-content-end flex-grow-1 pe-3">
+                <p>{auth.username}</p>
+                <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={logout}>Выйти</Button>
+            </Nav>
+    }
+    else{
+        buttons =
+                <Nav className="justify-content-end d-flex">
+                    <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setRegistrationModalActive(true)}>Регистрация</Button>
+                    <MyModal active={registrationModalActive} setActive={setRegistrationModalActive}>
+                        <Registration/>
+                    </MyModal>
+
+                    <Button variant="success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setLoginModalActive(true)}>Вход</Button>
+                    <MyModal active={loginModalActive} setActive={setLoginModalActive}>
+                        <Login/>
+                    </MyModal>
+                </Nav>
+    }
+
     return (
         <div className="Home">
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand href="/">My Notes App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link href="/">Главная</Nav.Link>
-                            <Nav.Link href="/about">О сайте</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
+                    {buttons}
                 </Container>
             </Navbar>
-
-            <button className={"registration-btn"} onClick={() => setRegistrationModalActive(true)}>Регистрация</button>
-            <MyModal active={registrationModalActive} setActive={setRegistrationModalActive}>
-                <Registration/>
-            </MyModal>
-
-            <button className={"login-btn"} onClick={() => setLoginModalActive(true)}>Вход</button>
-            <MyModal active={loginModalActive} setActive={setLoginModalActive}>
-                <Login/>
-            </MyModal>
         </div>
     );
 }

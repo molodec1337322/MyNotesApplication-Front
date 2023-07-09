@@ -10,7 +10,7 @@ function App() {
         return{
             token: null,
             username: null,
-            isAuth: null
+            isAuth: false
         }
     })
     return (
