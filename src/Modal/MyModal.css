@@ -24,7 +24,6 @@
     background-color: white;
     transition: 0.4s all;
     transform: scale(0.5);
-    width: 50vw;
 }
 
 .MyModalContent.active{

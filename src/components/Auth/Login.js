@@ -49,16 +49,16 @@ function Login(){
 
     return (
         <div className="form">
-            <h2>User registration:</h2>
+            <h2>Вход</h2>
             <form onSubmit={sendLoginData}>
-                <p>Name: <input
+                <p>Имя пользователя: <input
                     type="username"
                     id="username"
                     name="username"
                     value={Login.username}
                     onChange={changeInputLogin}
                 /></p>
-                <p>Password: <input
+                <p>Пароль: <input
                     type="password"
                     id="password"
                     name="password"

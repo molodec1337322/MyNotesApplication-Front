@@ -32,8 +32,14 @@ function Registration(){
 
     function sendRegistrationData(e){
         e.preventDefault()
-        if(!validator.isEmail(registration.email)){
-            alert("You did not enter email")
+        if(registration.email.length <= 3){
+            alert("Поле с электронной почтой не должно быть пустым")
+        }
+        else if(registration.username.length <= 3){
+            alert("Поле с именем пользователем не должно модержать менее 3 символов")
+        }
+        else if(!validator.isEmail(registration.email)){
+            alert("Вы не ввели адрес почты")
         }
         else if(registration.password !== registration.password2){
             alert("Repeated password incorrectly")
@@ -61,16 +67,16 @@ function Registration(){
 
     return (
         <div className="form">
-            <h2>Registration:</h2>
+            <h2>Регистрация:</h2>
             <form onSubmit={sendRegistrationData}>
-                <p>Name: <input
+                <p>Имя пользователя: <input
                     type="username"
                     id="username"
                     name="username"
                     value={Registration.usernamr}
                     onChange={changeInputRegister}
                 /></p>
-                <p>Email: <input
+                <p>Электронная почта: <input
                     type="email"
                     id="email"
                     name="email"
@@ -78,14 +84,14 @@ function Registration(){
                     onChange={changeInputRegister}
                     formnovalidate
                 /></p>
-                <p>Password: <input
+                <p>Пароль: <input
                     type="password"
                     id="password"
                     name="password"
                     value={Registration.password}
                     onChange={changeInputRegister}
                 /></p>
-                <p>Repeat password: <input
+                <p>Подтвердите пароль: <input
                     type="password"
                     id="password2"
                     name="password2"
