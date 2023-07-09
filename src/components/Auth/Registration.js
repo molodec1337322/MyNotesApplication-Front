@@ -5,7 +5,7 @@ import { DOMEN_SERVER, DOMEN_SITE } from '../../config/const';
 import {AuthContext} from "../../context";
 
 function Registration(){
-    const {isAuth, setIsAuth} = useContext(AuthContext)
+    const {auth, setAuth} = useContext(AuthContext)
 
     const [registration, setRegistration] = useState(() => {
         return {
@@ -15,6 +15,7 @@ function Registration(){
             password2: "",
         }
     })
+    const [message, setMessage] = useState("")
 
     function changeInputRegister(e){
         e.persist()
@@ -33,19 +34,24 @@ function Registration(){
     function sendRegistrationData(e){
         e.preventDefault()
         if(registration.email.length <= 3){
-            alert("Поле с электронной почтой не должно быть пустым")
+            //alert("Поле с электронной почтой не должно быть пустым")
+            setMessage("Поле с электронной почтой не должно быть пустым")
         }
         else if(registration.username.length <= 3){
-            alert("Поле с именем пользователем не должно модержать менее 3 символов")
+            //alert("Поле с именем пользователем не должно модержать менее 3 символов")
+            setMessage("Поле с именем пользователем не должно модержать менее 3 символов")
         }
         else if(!validator.isEmail(registration.email)){
-            alert("Вы не ввели адрес почты")
+            //alert("Вы не ввели адрес почты")
+            setMessage("Вы не ввели адрес почты")
         }
         else if(registration.password !== registration.password2){
-            alert("Repeated password incorrectly")
+            //alert("Repeated password incorrectly")
+            setMessage("Пароли не совпадают")
         }
         else if(!validator.isStrongPassword(registration.password, {minSymbols: 2})){
-            alert("Password must consist of one lowercase, uppercase letter and number, at least 2 characters")
+            //alert("Password must consist of one lowercase, uppercase letter and number, at least 2 characters")
+            setMessage("Пароль должен содержать как минимум одну заглавную букву, одну строчную и одну цифру")
         }
         else{
             axios.post(DOMEN_SERVER + "api/Auth/Registration", {
@@ -54,13 +60,16 @@ function Registration(){
                 password: registration.password,
             }).then(res => {
                 if(res.data == true){
-                    alert("Please, check your email for confirmation mail to validate your account")
+                    //alert("Please, check your email for confirmation mail to validate your account")
+                    setMessage("На вашу почту было отправлено письмо для подтверждения аккаунта")
                 }
                 else if(res.status == 409){
-                    alert("Email or username already in use")
+                    //alert("Email or username already in use")
+                    setMessage("Имя пользователя или почта уже заняты")
                 }
             }).catch(() => {
-                alert("An error occurred on the server")
+                //alert("An error occurred on the server")
+                setMessage("Во время выполнения запроса произошла ошибка")
             })
         }
     }
@@ -73,14 +82,14 @@ function Registration(){
                     type="username"
                     id="username"
                     name="username"
-                    value={Registration.usernamr}
+                    value={registration.usernamr}
                     onChange={changeInputRegister}
                 /></p>
                 <p>Электронная почта: <input
                     type="email"
                     id="email"
                     name="email"
-                    value={Registration.email}
+                    value={registration.email}
                     onChange={changeInputRegister}
                     formnovalidate
                 /></p>
@@ -88,17 +97,18 @@ function Registration(){
                     type="password"
                     id="password"
                     name="password"
-                    value={Registration.password}
+                    value={registration.password}
                     onChange={changeInputRegister}
                 /></p>
                 <p>Подтвердите пароль: <input
                     type="password"
                     id="password2"
                     name="password2"
-                    value={Registration.password2}
+                    value={registration.password2}
                     onChange={changeInputRegister}
                 /></p>
                 <input type="submit"/>
+                <p id="showErrorMessage">{message}</p>
             </form>
         </div>
     )

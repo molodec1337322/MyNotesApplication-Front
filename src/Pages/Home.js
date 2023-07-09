@@ -1,11 +1,13 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import MyModal from "../Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Container, Nav, Navbar} from "react-bootstrap";
+import {AuthContext} from "../context";
 
 function Home() {
 
+    const {auth, setAuth} = useContext(AuthContext)
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
 

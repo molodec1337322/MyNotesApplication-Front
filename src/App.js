@@ -6,11 +6,17 @@ import About from "./Pages/About"
 import {AuthContext} from "./context";
 
 function App() {
-    const [isAuth, setIsAuth] = useState(false)
+    const [auth, setAuth] = useState(() => {
+        return{
+            token: null,
+            username: null,
+            isAuth: null
+        }
+    })
     return (
         <AuthContext.Provider value = {{
-            isAuth,
-            setIsAuth
+            auth,
+            setAuth
             }
         }>
             <BrowserRouter>

@@ -5,7 +5,7 @@ import { DOMEN_SERVER, DOMEN_SITE } from '../../config/const';
 import {AuthContext} from "../../context";
 
 function Login(){
-    const {isAuth, setIsAuth} = useContext(AuthContext)
+    const {auth, setAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
         return {
@@ -13,6 +13,7 @@ function Login(){
             password: "",
         }
     })
+    const [message, setMessage] = useState("")
 
     function changeInputLogin(e){
         e.persist()
@@ -26,8 +27,9 @@ function Login(){
 
     function sendLoginData(e){
         e.preventDefault()
-        if(!validator.username(login.username)){
-            alert("You did not enter username")
+        if(login.username.length < 1){
+            //alert("You did not enter username")
+            setMessage("Вы не ввели имя пользователя")
         }
         else{
             axios.post(DOMEN_SERVER + "api/Auth/Login", {
@@ -35,14 +37,23 @@ function Login(){
                 password: login.password,
             }).then(res => {
                 if(res.data == true){
-                    alert(res.data)
-                    setIsAuth(true)
+                    //alert(res.data)
+                    setAuth(prev => {
+                        return{
+                            ...prev,
+                            token: res.token,
+                            username: " ",
+                            isAuth: true
+                        }
+                    })
                 }
-                else if(res.status == 409){
-                    alert("An error occurred on the server")
+                else if(res.status == 404){
+                    //alert("An error occurred on the server")
+                    setMessage("Имя пользователя или пароль введены неверно")
                 }
             }).catch(() => {
-                alert("An error occurred on the server")
+                //alert("An error occurred on the server")
+                setMessage("Во время выполнения запроса произошла ошибка")
             })
         }
     }
@@ -55,17 +66,18 @@ function Login(){
                     type="username"
                     id="username"
                     name="username"
-                    value={Login.username}
+                    value={login.username}
                     onChange={changeInputLogin}
                 /></p>
                 <p>Пароль: <input
                     type="password"
                     id="password"
                     name="password"
-                    value={Login.password}
+                    value={login.password}
                     onChange={changeInputLogin}
                 /></p>
                 <input type="submit"/>
+                <p id="showErrorMessage">{message}</p>
             </form>
         </div>
     )
