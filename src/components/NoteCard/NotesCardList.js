@@ -5,7 +5,7 @@ import NoteCard from "./NoteCard";
 function NotesCardList(notes){
     console.log(notes.notes)
     return(
-        <div className={"NoteCardListBackground"}>
+        <div className="NoteCardListBackground container-fluid row">
             {notes.notes.map((note, index) => {
                 return(<NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>)
             })}

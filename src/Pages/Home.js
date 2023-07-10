@@ -6,6 +6,7 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
 import NoteCard from "../components/NoteCard/NoteCard";
 import NotesCardList from "../components/NoteCard/NotesCardList";
+import "./Home.css"
 
 function Home() {
 
@@ -20,6 +21,14 @@ function Home() {
         }, {
             id: 1,
             title: "title 1",
+            body: "text 1"
+        }, {
+            id: 2,
+            title: "title 2",
+            body: "text 0"
+        }, {
+            id: 3,
+            title: "title 3",
             body: "text 1"
         }]
     })
@@ -41,9 +50,9 @@ function Home() {
 
     if(auth.isAuth){
         buttons =
-            <Nav className="justify-content-end flex-grow-1 pe-3">
+            <Nav className="justify-content-end d-flex">
                 <p>{auth.username}</p>
-                <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={logout}>Выйти</Button>
+                <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => logout}>Выйти</Button>
             </Nav>
     }
     else{
@@ -63,14 +72,14 @@ function Home() {
 
     return (
         <div className="Home">
-            <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
+            <Navbar className="bg-body-secondary sticky-top lg">
                 <Container>
                     <Navbar.Brand href="/">My Notes App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     {buttons}
                 </Container>
             </Navbar>
-            <div>
+            <div className="List">
                 <NotesCardList notes={notes}/>
             </div>
         </div>
