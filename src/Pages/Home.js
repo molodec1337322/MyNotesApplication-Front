@@ -4,12 +4,25 @@ import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
+import NoteCard from "../components/NoteCard/NoteCard";
+import NotesCardList from "../components/NoteCard/NotesCardList";
 
 function Home() {
 
     const {auth, setAuth} = useContext(AuthContext)
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
+    const [notes, setNotes] = useState(() => {
+        return[{
+            id: 0,
+            title: "title 0",
+            body: "text 0"
+        }, {
+            id: 1,
+            title: "title 1",
+            body: "text 1"
+        }]
+    })
 
     function logout (){
         setAuth(prev => {
@@ -23,6 +36,8 @@ function Home() {
     }
 
     let buttons
+
+
 
     if(auth.isAuth){
         buttons =
@@ -55,6 +70,9 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
+            <div>
+                <NotesCardList notes={notes}/>
+            </div>
         </div>
     );
 }
