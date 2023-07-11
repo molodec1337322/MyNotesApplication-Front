@@ -6,6 +6,7 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
 import NoteCard from "../components/NoteCard/NoteCard";
 import NotesCardList from "../components/NoteCard/NotesCardList";
+
 import "./Home.css"
 
 function Home() {
@@ -45,8 +46,6 @@ function Home() {
     }
 
     let buttons
-
-
 
     if(auth.isAuth){
         buttons =
