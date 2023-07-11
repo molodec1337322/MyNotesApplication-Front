@@ -18,19 +18,27 @@ function Home() {
         return[{
             id: 0,
             title: "title 0",
-            body: "text 0"
+            body: "text 0",
+            type: "ToDo",
+            order: "1",
         }, {
             id: 1,
             title: "title 1",
-            body: "text 1"
+            body: "text 1",
+            type: "ToDo",
+            order: "0",
         }, {
             id: 2,
             title: "title 2",
-            body: "text 0"
+            body: "text 0",
+            type: "GotInWork",
+            order: "0",
         }, {
             id: 3,
             title: "title 3",
-            body: "text 1"
+            body: "text 1",
+            type: "InProgress",
+            order: "0",
         }]
     })
 
