@@ -3,10 +3,9 @@ import "./NoteCardList.css"
 import NoteCard from "./NoteCard";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
+import CreateNewNoteCardButton from "./CreateNewNoteCardButton";
 
 function NotesCardList(notes){
-
-    //const [notes, setNotes] = useState(notesList.notes)
 
     let notesList = notes
 
@@ -27,7 +26,7 @@ function NotesCardList(notes){
     map.set("ToDo", [toDoNotes, setToDoNotes])
     map.set("GotInWork", [gotInWorkNotes, setGotInWorkNotes])
     map.set("InProgress", [inProgressNotes, setInProgressNotes])
-    map.set("Done", [doneNotes, setInProgressNotes])
+    map.set("Done", [doneNotes, setDoneNotes])
 
     function handleOnDragEnd(result){
 
@@ -35,35 +34,22 @@ function NotesCardList(notes){
             return;
         }
 
-        const sourceItems = Array.from(map.get(result.source.droppableId).at(0))
-        const [reorderedItem] = sourceItems.splice(result.source.index, 1)
-        map.get(result.source.droppableId).at(1)(sourceItems)
-
-        const destItems = Array.from(map.get(result.destination.droppableId).at(0))
-        destItems.splice(result.destination.index, 0, [reorderedItem].at(0))
-        map.get(result.destination.droppableId).at(1)(destItems)
-
-        console.log(sourceItems)
-        console.log(destItems)
-
-
-
-
-        /*
-        if(result.destination.droppableId == result.source.droppableId){
-            const items = Array.from(notes)
+        if(result.destination.droppableId === result.source.droppableId){
+            const items = Array.from(map.get(result.source.droppableId).at(0))
             const [reorderedItem] = items.splice(result.source.index, 1)
             items.splice(result.destination.index, 0, reorderedItem)
-            setNotes(items)
+            map.get(result.destination.droppableId).at(1)(items)
         }
+        else{
+            const sourceItems = Array.from(map.get(result.source.droppableId).at(0))
+            const [reorderedItem] = sourceItems.splice(result.source.index, 1)
+            map.get(result.source.droppableId).at(1)(sourceItems)
 
-         */
-
-
-        console.log(result.source.droppableId)
-        console.log(result.source.index)
-        console.log(result.destination.droppableId)
-        console.log(result.destination.index)
+            const destItems = Array.from(map.get(result.destination.droppableId).at(0));
+            [reorderedItem].at(0).type = result.destination.droppableId
+            destItems.splice(result.destination.index, 0, [reorderedItem].at(0))
+            map.get(result.destination.droppableId).at(1)(destItems)
+        }
     }
 
     return(
@@ -75,6 +61,7 @@ function NotesCardList(notes){
                         {(provided) => (
                             <div className="ToDo" {...provided.droppableProps} ref={provided.innerRef}>
                                 {toDoNotes?.map((note, index) => {
+                                    note.order = index
                                     return(
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
@@ -87,6 +74,10 @@ function NotesCardList(notes){
                                     )
                                 })}
                                 {provided.placeholder}
+                                <br/>
+                                <div className="d-flex justify-content-center">
+                                    <CreateNewNoteCardButton notesList={notes}/>
+                                </div>
                             </div>
                         )
                         }
@@ -98,6 +89,7 @@ function NotesCardList(notes){
                         {(provided) => (
                             <div className="GotInWork" {...provided.droppableProps} ref={provided.innerRef}>
                                 {gotInWorkNotes?.map((note, index) => {
+                                    note.order = index
                                     return(
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
@@ -121,6 +113,7 @@ function NotesCardList(notes){
                         {(provided) => (
                             <div className="InProgress" {...provided.droppableProps} ref={provided.innerRef}>
                                 {inProgressNotes?.map((note, index) => {
+                                    note.order = index
                                     return(
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
@@ -144,9 +137,11 @@ function NotesCardList(notes){
                         {(provided) => (
                             <div className="Done" {...provided.droppableProps} ref={provided.innerRef}>
                                 {doneNotes?.map((note, index) => {
+                                    note.order = index
                                     return(
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
-                                            {(provided) => (
+                                            {
+                                                (provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                                     <NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>
                                                 </div>

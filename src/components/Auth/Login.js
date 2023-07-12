@@ -75,21 +75,11 @@ function Login(active){
             <h2>Вход</h2>
             <Form onSubmit={sendLoginData}>
                 <Form.Group as={Row} className="mb-4" controlId="formPlaintextEmail">
-                    <Form.Label column sm="4">
-                        Эелектронная почта
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="email" type="email" placeholder="example@example.com" value={login.email} onChange={changeInputLogin}/>
-                    </Col>
+                    <FormControl name="email" type="email" placeholder="Почта (example@example.com)" value={login.email} onChange={changeInputLogin}/>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="4">
-                        Пароль
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="password" type="password" placeholder="****" value={login.password} onChange={changeInputLogin}/>
-                    </Col>
+                    <FormControl name="password" type="password" placeholder="Пароль" value={login.password} onChange={changeInputLogin}/>
                 </Form.Group>
 
                 <div className="d-flex justify-content-center">

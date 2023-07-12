@@ -80,46 +80,26 @@ function Registration(){
             <h2>Регистрация</h2>
             <Form onSubmit={sendRegistrationData}>
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                    <Form.Label column sm="4">
-                        Имя пользователя
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="username" type="username" placeholder="UserName1" value={registration.username} onChange={changeInputRegister}/>
-                    </Col>
+                    <FormControl name="username" type="username" placeholder="Имя пользователя" value={registration.username} onChange={changeInputRegister}/>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                    <Form.Label column sm="4">
-                        Электронная почта
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="email" type="email" placeholder="example@example.com" value={registration.email} onChange={changeInputRegister}/>
-                    </Col>
+                    <FormControl name="email" type="email" placeholder="Почта (example@example.com)" value={registration.email} onChange={changeInputRegister}/>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="4">
-                        Пароль
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="password" type="password" placeholder="****" value={registration.password} onChange={changeInputRegister}/>
-                    </Col>
+                    <FormControl name="password" type="password" placeholder="Пароль" value={registration.password} onChange={changeInputRegister}/>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="4">
-                        Пароль еще раз
-                    </Form.Label>
-                    <Col sm="8">
-                        <FormControl name="password2" type="password" placeholder="****" value={registration.password2} onChange={changeInputRegister}/>
-                    </Col>
+                    <FormControl name="password2" type="password" placeholder="Повтор пароля" value={registration.password2} onChange={changeInputRegister}/>
                 </Form.Group>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Войти</Button>
+                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Зарегестрироваться</Button>
                 </div>
 
-                <div  className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>
                 </div>
             </Form>
