@@ -76,7 +76,7 @@ function NotesCardList(notes){
                                 {provided.placeholder}
                                 <br/>
                                 <div className="d-flex justify-content-center">
-                                    <CreateNewNoteCardButton notesList={notes}/>
+                                    <CreateNewNoteCardButton notesList={notesList}/>
                                 </div>
                             </div>
                         )

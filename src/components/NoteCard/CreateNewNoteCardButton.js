@@ -5,6 +5,8 @@ import CreateNewNoteWindow from "./CreateNewNoteWindow";
 
 function CreateNewNoteCardButton(props, notesList){
 
+    console.log(notesList)
+
     const [isModalActive, setModalActive] = useState(false)
 
     function CreateNewNote(e){
