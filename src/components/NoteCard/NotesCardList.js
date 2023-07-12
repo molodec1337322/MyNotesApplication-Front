@@ -4,21 +4,11 @@ import NoteCard from "./NoteCard";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 
-class Triple{
-    constructor(first, second, third) {
-        this.first = first
-        this.second = second
-        this.third = third
-    }
+function NotesCardList(notes){
 
-    getFirst(){
-        return this.first
-    }
-}
+    //const [notes, setNotes] = useState(notesList.notes)
 
-function NotesCardList(notesList){
-
-    const [notes, setNotes] = useState(notesList.notes)
+    let notesList = notes
 
     const [toDoNotes, setToDoNotes] = useState(notesList.notes.filter(note => {
         return note.type === "ToDo"
@@ -34,10 +24,10 @@ function NotesCardList(notesList){
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
 
     let map = new Map()
-    map.set("ToDo", toDoNotes)
-    map.set("GotInWork", gotInWorkNotes)
-    map.set("InProgress", inProgressNotes)
-    map.set("Done", doneNotes)
+    map.set("ToDo", [toDoNotes, setToDoNotes])
+    map.set("GotInWork", [gotInWorkNotes, setGotInWorkNotes])
+    map.set("InProgress", [inProgressNotes, setInProgressNotes])
+    map.set("Done", [doneNotes, setInProgressNotes])
 
     function handleOnDragEnd(result){
 
@@ -45,10 +35,19 @@ function NotesCardList(notesList){
             return;
         }
 
-        const sourceItems = Array.from(map.get(result.source.droppableId))
+        const sourceItems = Array.from(map.get(result.source.droppableId).at(0))
         const [reorderedItem] = sourceItems.splice(result.source.index, 1)
-        const destItems = Array.from(map.get(result.destination.droppableId))
-        destItems.splice(result.destination.index, 0, [reorderedItem])
+        map.get(result.source.droppableId).at(1)(sourceItems)
+
+        const destItems = Array.from(map.get(result.destination.droppableId).at(0))
+        destItems.splice(result.destination.index, 0, [reorderedItem].at(0))
+        map.get(result.destination.droppableId).at(1)(destItems)
+
+        console.log(sourceItems)
+        console.log(destItems)
+
+
+
 
         /*
         if(result.destination.droppableId == result.source.droppableId){
@@ -63,7 +62,7 @@ function NotesCardList(notesList){
 
         console.log(result.source.droppableId)
         console.log(result.source.index)
-        console.log(result.source.id)
+        console.log(result.destination.droppableId)
         console.log(result.destination.index)
     }
 
