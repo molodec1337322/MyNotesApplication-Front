@@ -5,7 +5,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 import CreateNewNoteCardButton from "./CreateNewNoteCardButton";
 
-function NotesCardList(notes){
+function NotesCardList(notes, setNotes){
 
     let notesList = notes
 
@@ -21,6 +21,8 @@ function NotesCardList(notes){
     const [doneNotes, setDoneNotes] = useState(notesList.notes.filter(note => {
         return note.type === "Done"
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
+
+
 
     let map = new Map()
     map.set("ToDo", [toDoNotes, setToDoNotes])
@@ -52,6 +54,19 @@ function NotesCardList(notes){
         }
     }
 
+    function handleOnAddNote(title, text){
+        let newNoteObj = {
+            id: notesList.notes.length,
+            title: title,
+            body: text,
+            type: "ToDo",
+            order: notesList.notes.filter(note => {return note.type === "ToDo"}).length,
+        }
+        setNotes([...notes, newNoteObj])
+    }
+
+
+
     return(
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -76,7 +91,7 @@ function NotesCardList(notes){
                                 {provided.placeholder}
                                 <br/>
                                 <div className="d-flex justify-content-center">
-                                    <CreateNewNoteCardButton notesList={notesList}/>
+                                    <CreateNewNoteCardButton notes={notesList} onAddNoteHandler={handleOnAddNote}/>
                                 </div>
                             </div>
                         )

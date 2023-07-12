@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 
-function CreateNewNoteWindow(notesList, active){
+function CreateNewNoteWindow(notesList, active, {onAddNoteHandler}){
 
-    console.log(notesList)
+    console.log(onAddNoteHandler)
+    let myNotesList = notesList
 
     const [isActive, setIsActive] = useState(active)
-    const [notes, setNotes] = useState(notesList)
+    const [notes, setNotes] = useState(notesList.notesList.notes)
     const [newNote, setNewNote] = useState(() => {
         return{
             title: "",
@@ -24,19 +25,31 @@ function CreateNewNoteWindow(notesList, active){
             return
         }
         setIsActive(false)
+        onAddNoteHandler(newNote.title, newNote.text)
+        /*
+        let newNoteObj = {
+            id: notes.length,
+            title: newNote.title,
+            body: newNote.text,
+            type: NOTES_TYPE_CREATE,
+            order: Array.from(myNotesList.notesList.notes).filter(note => {return note.type === NOTES_TYPE_CREATE}).length,
+        }
+        myNotesList.notesList.notes = Array.from(myNotesList.notesList.notes).push(newNoteObj)
+
+         */
+        /*
         setNotes(prev => {
             let newNoteObj = {
-                id: notes.SIZE,
+                id: notes.length,
                 title: newNote.title,
                 body: newNote.text,
                 type: NOTES_TYPE_CREATE,
-                order: notesList.filter(note => {return note.type === NOTES_TYPE_CREATE}),
+                order: Array.from(myNotesList.notesList.notes).filter(note => {return note.type === NOTES_TYPE_CREATE}).length,
             }
-            return{
-                ...prev,
-                newNoteObj,
-            }
+            return Array.from(myNotesList.notesList.notes).push(newNoteObj)
         })
+
+         */
     }
 
     function changeInput(e){

@@ -87,7 +87,7 @@ function Home() {
                 </Container>
             </Navbar>
             <div className="List">
-                <NotesCardList notes={notes}/>
+                <NotesCardList notes={notes} setNotes={setNotes}/>
             </div>
         </div>
     );
