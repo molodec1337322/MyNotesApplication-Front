@@ -1,13 +1,8 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 
-function CreateNewNoteWindow(notesList, active, {onAddNoteHandler}){
+function CreateNewNoteWindow({setActive, onAddNoteHandler}){
 
-    console.log(onAddNoteHandler)
-    let myNotesList = notesList
-
-    const [isActive, setIsActive] = useState(active)
-    const [notes, setNotes] = useState(notesList.notesList.notes)
     const [newNote, setNewNote] = useState(() => {
         return{
             title: "",
@@ -16,40 +11,14 @@ function CreateNewNoteWindow(notesList, active, {onAddNoteHandler}){
     })
     const [message, setMessage] = useState("")
 
-    const NOTES_TYPE_CREATE = "ToDo"
-
     function createNewNote(e){
         e.preventDefault()
         if(!newNote.title || !newNote.text){
             setMessage("Поля не могут быть пустыми!")
             return
         }
-        setIsActive(false)
+        setActive(false)
         onAddNoteHandler(newNote.title, newNote.text)
-        /*
-        let newNoteObj = {
-            id: notes.length,
-            title: newNote.title,
-            body: newNote.text,
-            type: NOTES_TYPE_CREATE,
-            order: Array.from(myNotesList.notesList.notes).filter(note => {return note.type === NOTES_TYPE_CREATE}).length,
-        }
-        myNotesList.notesList.notes = Array.from(myNotesList.notesList.notes).push(newNoteObj)
-
-         */
-        /*
-        setNotes(prev => {
-            let newNoteObj = {
-                id: notes.length,
-                title: newNote.title,
-                body: newNote.text,
-                type: NOTES_TYPE_CREATE,
-                order: Array.from(myNotesList.notesList.notes).filter(note => {return note.type === NOTES_TYPE_CREATE}).length,
-            }
-            return Array.from(myNotesList.notesList.notes).push(newNoteObj)
-        })
-
-         */
     }
 
     function changeInput(e){

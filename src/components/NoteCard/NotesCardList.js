@@ -5,23 +5,20 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 import CreateNewNoteCardButton from "./CreateNewNoteCardButton";
 
-function NotesCardList(notes, setNotes){
+function NotesCardList({notes, setNotes}){
 
-    let notesList = notes
-
-    const [toDoNotes, setToDoNotes] = useState(notesList.notes.filter(note => {
+    const [toDoNotes, setToDoNotes] = useState(notes.filter(note => {
         return note.type === "ToDo"
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
-    const [gotInWorkNotes, setGotInWorkNotes] = useState(notesList.notes.filter(note => {
+    const [gotInWorkNotes, setGotInWorkNotes] = useState(notes.filter(note => {
         return note.type === "GotInWork"
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
-    const [inProgressNotes, setInProgressNotes] = useState(notesList.notes.filter(note => {
+    const [inProgressNotes, setInProgressNotes] = useState(notes.filter(note => {
         return note.type === "InProgress"
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
-    const [doneNotes, setDoneNotes] = useState(notesList.notes.filter(note => {
+    const [doneNotes, setDoneNotes] = useState(notes.filter(note => {
         return note.type === "Done"
     }).sort((a, b) => parseFloat(a.order) - parseFloat(b.order)))
-
 
 
     let map = new Map()
@@ -56,15 +53,28 @@ function NotesCardList(notes, setNotes){
 
     function handleOnAddNote(title, text){
         let newNoteObj = {
-            id: notesList.notes.length,
+            id: notes.length,
             title: title,
             body: text,
             type: "ToDo",
-            order: notesList.notes.filter(note => {return note.type === "ToDo"}).length,
+            order: notes.filter(note => {return note.type === "ToDo"}).length,
         }
         setNotes([...notes, newNoteObj])
+        setToDoNotes([...toDoNotes, newNoteObj])
     }
 
+    function handleOnDeleteNote(id, type){
+
+        const allItems = Array.from(notes)
+        const allItemsIdToDel = allItems.findIndex(note => {return note.id === id})
+        allItems.splice(allItemsIdToDel, 1)
+        setNotes(allItems)
+
+        const items = Array.from(map.get(type).at(0))
+        const itemIdToDel = items.findIndex(note => {return note.id === id})
+        items.splice(itemIdToDel, 1)
+        map.get(type).at(1)(items)
+    }
 
 
     return(
@@ -81,7 +91,7 @@ function NotesCardList(notes, setNotes){
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                                    <NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>
+                                                    <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
                                                 </div>
                                             )
                                             }
@@ -91,7 +101,7 @@ function NotesCardList(notes, setNotes){
                                 {provided.placeholder}
                                 <br/>
                                 <div className="d-flex justify-content-center">
-                                    <CreateNewNoteCardButton notes={notesList} onAddNoteHandler={handleOnAddNote}/>
+                                    <CreateNewNoteCardButton notes={notes} onAddNoteHandler={handleOnAddNote}/>
                                 </div>
                             </div>
                         )
@@ -109,7 +119,7 @@ function NotesCardList(notes, setNotes){
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                                    <NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>
+                                                    <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
                                                 </div>
                                             )
                                             }
@@ -133,7 +143,7 @@ function NotesCardList(notes, setNotes){
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                                    <NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>
+                                                    <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
                                                 </div>
                                             )
                                             }
@@ -158,7 +168,7 @@ function NotesCardList(notes, setNotes){
                                             {
                                                 (provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                                    <NoteCard id={note.id} title={note.title} body={note.body} key={note.id}/>
+                                                    <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
                                                 </div>
                                             )
                                             }

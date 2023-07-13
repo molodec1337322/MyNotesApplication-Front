@@ -2,19 +2,22 @@ import React, {useState} from "react";
 import {Button, Card, Form} from "react-bootstrap";
 import "./NoteCard.css"
 
-function NoteCard(props) {
+function NoteCard({note, onDeleteNoteHandler}) {
 
     const [cardData, setCardData] = useState(() => {
         return{
-            id: props.id,
-            title: props.title,
-            body: props.body
+            id: note.id,
+            title: note.title,
+            body: note.body,
+            type: note.type
         }
     })
 
+
+
     function deleteNote(e){
         e.preventDefault()
-        alert("del")
+        onDeleteNoteHandler(note.id, note.type)
     }
 
     return(
