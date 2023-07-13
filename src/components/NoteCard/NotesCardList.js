@@ -1,11 +1,15 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import "./NoteCardList.css"
 import NoteCard from "./NoteCard";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 import CreateNewNoteCardButton from "./CreateNewNoteCardButton";
+import {Alert} from "react-bootstrap";
+import {AuthContext} from "../../context";
 
-function NotesCardList({notes, setNotes}){
+function NotesCardList({notes, setNotes, notesLimit}){
+
+    const {auth, setAuth} = useContext(AuthContext)
 
     const [toDoNotes, setToDoNotes] = useState(notes.filter(note => {
         return note.type === "ToDo"
@@ -76,6 +80,22 @@ function NotesCardList({notes, setNotes}){
         map.get(type).at(1)(items)
     }
 
+    let addCardBtn
+    if(notes.length >= auth.notesLimit){
+        addCardBtn =
+            <Alert variant="warning">
+                <Alert.Heading>Ой-ой!</Alert.Heading>
+                <p>
+                    Кажется вы достигли лимита по созданию заметок. Если вы хотите создать новые, то вам придется удалить старие. Такие дела ¯\_(ツ)_/¯
+                </p>
+            </Alert>
+    }
+    else {
+        addCardBtn =
+            <div className="d-flex justify-content-center">
+                <CreateNewNoteCardButton notes={notes} onAddNoteHandler={handleOnAddNote}/>
+            </div>
+    }
 
     return(
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
@@ -100,9 +120,7 @@ function NotesCardList({notes, setNotes}){
                                 })}
                                 {provided.placeholder}
                                 <br/>
-                                <div className="d-flex justify-content-center">
-                                    <CreateNewNoteCardButton notes={notes} onAddNoteHandler={handleOnAddNote}/>
-                                </div>
+                                {addCardBtn}
                             </div>
                         )
                         }

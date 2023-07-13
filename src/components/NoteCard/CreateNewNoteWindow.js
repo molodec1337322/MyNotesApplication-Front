@@ -31,8 +31,6 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler}){
         })
     }
 
-    {onCleanDataHandler}
-
     return(
         <div className="form">
             <h2>Новая заметка</h2>

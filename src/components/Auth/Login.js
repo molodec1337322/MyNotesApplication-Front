@@ -4,7 +4,7 @@ import {AuthContext} from "../../context";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import axios from "axios";
 
-function Login(){
+function Login({setActive}){
     const {auth, setAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
@@ -39,53 +39,36 @@ function Login(){
             setMessage("Вы не ввели пароль")
         }
         else{
-            /*
-            fetch(consts.API_SERVER + "/api/v1/Auth/Login", {
-                method: "post",
-                mode: 'no-cors',
-                credentials: 'same-origin',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: login.email,
-                    password: login.password
-                })
-            }).then(res => {
-                console.log(res)
-
-            }).catch(e => {
-                console.log(e)
-                setMessage("Во время выполнения запроса произошла ошибка")
-            })*/
-
             axios.post(consts.API_SERVER + "/api/v1/Auth/Login", {
-                mode: 'no-cors',
-                body:{
-                    email: login.email,
-                    password: login.password,
-                },
+                Email: login.email,
+                Password: login.password,
+            }, {headers: {
+                "Content-Type": "application/json",
+                    "Cache-Control": "no-cache",
+                    "Access-Control-Allow-Origin": "*",
+                }
             }).then(res => {
-                if(res.data == true){
-                    //alert(res.data)
+                if(typeof res.data !== "undefined"){
                     setAuth(prev => {
                         return{
                             ...prev,
-                            token: res.token,
-                            username: getUsernameFromJWT(res.token),
+                            token: res.data.token,
+                            username: getUsernameFromJWT(res.data.token),
                             isAuth: true
                         }
                     })
-                }
-                else if(res.status == 404){
-                    //alert("An error occurred on the server")
-                    setMessage("Имя пользователя или пароль введены неверно")
+                    setActive(false)
                 }
             }).catch(e => {
-                //alert("An error occurred on the server")
-                console.log(e)
-                setMessage("Во время выполнения запроса произошла ошибка")
+                if(typeof e.response !== "undefined"){
+                    if(e.response.status === 404){
+                        setMessage("Почта или пароль введены неверно")
+                    }
+                }
+                else{
+                    console.log(e)
+                    setMessage("Во время выполнения запроса произошла ошибка")
+                }
             })
         }
     }
