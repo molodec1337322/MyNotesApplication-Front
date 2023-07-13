@@ -88,7 +88,7 @@ function NotesCardList({notes, setNotes}){
                                 {toDoNotes?.map((note, index) => {
                                     note.order = index
                                     return(
-                                        <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
+                                        <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                                     <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
@@ -116,7 +116,7 @@ function NotesCardList({notes, setNotes}){
                                 {gotInWorkNotes?.map((note, index) => {
                                     note.order = index
                                     return(
-                                        <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
+                                        <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                                     <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
@@ -140,7 +140,7 @@ function NotesCardList({notes, setNotes}){
                                 {inProgressNotes?.map((note, index) => {
                                     note.order = index
                                     return(
-                                        <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
+                                        <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                                     <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
@@ -164,7 +164,7 @@ function NotesCardList({notes, setNotes}){
                                 {doneNotes?.map((note, index) => {
                                     note.order = index
                                     return(
-                                        <Draggable key={note.id} draggableId={note.id.toString()} index={parseInt(note.order)}>
+                                        <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>
                                             {
                                                 (provided) => (
                                                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>

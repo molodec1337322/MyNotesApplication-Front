@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react'
-import axios from 'axios';
 import {consts} from "../../config/consts";
 import {AuthContext} from "../../context";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
+import axios from "axios";
 
-function Login(active){
+function Login(){
     const {auth, setAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
@@ -39,8 +39,28 @@ function Login(active){
             setMessage("Вы не ввели пароль")
         }
         else{
-            console.log(consts.API_SERVER)
-            axios.post(consts.API_SERVER + "/api/Auth/Login", {
+            /*
+            fetch(consts.API_SERVER + "/api/v1/Auth/Login", {
+                method: "post",
+                mode: 'no-cors',
+                credentials: 'same-origin',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: login.email,
+                    password: login.password
+                })
+            }).then(res => {
+                console.log(res)
+
+            }).catch(e => {
+                console.log(e)
+                setMessage("Во время выполнения запроса произошла ошибка")
+            })*/
+
+            axios.post(consts.API_SERVER + "/api/v1/Auth/Login", {
                 mode: 'no-cors',
                 body:{
                     email: login.email,

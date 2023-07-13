@@ -20,25 +20,25 @@ function Home() {
             title: "title 0",
             body: "text 0",
             type: "ToDo",
-            order: "1",
+            order: 1,
         }, {
             id: 1,
             title: "title 1",
             body: "text 1",
             type: "ToDo",
-            order: "0",
+            order: 0,
         }, {
             id: 2,
             title: "title 2",
             body: "text 0",
             type: "GotInWork",
-            order: "0",
+            order: 0,
         }, {
             id: 3,
             title: "title 3",
             body: "text 1",
             type: "InProgress",
-            order: "0",
+            order: 0,
         }]
     })
 
@@ -54,6 +54,7 @@ function Home() {
     }
 
     let buttons
+    let cardList
 
     if(auth.isAuth){
         buttons =
@@ -61,6 +62,9 @@ function Home() {
                 <p>{auth.username}</p>
                 <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => logout}>Выйти</Button>
             </Nav>
+
+        cardList =
+            <NotesCardList notes={notes} setNotes={setNotes}/>
     }
     else{
         buttons =
@@ -75,6 +79,14 @@ function Home() {
                         <Login/>
                     </MyModal>
                 </Nav>
+        cardList =
+            <div className="container-fluid row">
+                <div className="d-flex justify-content-center">
+                    <h3>Для использования приложения вам необходимо</h3>
+                    <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setLoginModalActive(true)}>Войти</Button>
+                </div>
+            </div>
+
     }
 
     return (
@@ -87,7 +99,7 @@ function Home() {
                 </Container>
             </Navbar>
             <div className="List">
-                <NotesCardList notes={notes} setNotes={setNotes}/>
+                {cardList}
             </div>
         </div>
     );
