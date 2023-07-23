@@ -13,8 +13,6 @@ function NoteCard({note, onDeleteNoteHandler}) {
         }
     })
 
-
-
     function deleteNote(e){
         e.preventDefault()
         onDeleteNoteHandler(note.id, note.type)

@@ -18,30 +18,6 @@ function App() {
         }
     })
 
-    axios.get(consts.API_SERVER + "/api/v1/Notes/GetLimit",
-        {},
-        {headers: {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-                "Access-Control-Allow-Origin": "*",
-            }
-        }).then(res => {
-            setAuth(prev => {
-                return{
-                    ...prev,
-                    notesLimit: res.data.limit
-                }
-            })
-    }).catch(e => {
-        console.log(e)
-        setAuth(prev => {
-            return{
-                ...prev,
-                notesLimit: e.response.data.limit
-            }
-        })
-    })
-
     return (
         <AuthContext.Provider value = {{
             auth,

@@ -6,6 +6,7 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
 import NoteCard from "../components/NoteCard/NoteCard";
 import NotesCardList from "../components/NoteCard/NotesCardList";
+import "./sidebar.css"
 
 import "./Home.css"
 import axios from "axios";
@@ -74,6 +75,19 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
+            <div id="sidebar-wrapper" className="min-vh-100 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+                <ul className="list-unstyled components">
+                    <li className="navbar-item">
+                        <p>1</p>
+                    </li>
+                    <li className="navbar-item">
+                        <p>2</p>
+                    </li>
+                    <li className="navbar-item">
+                        <p>3</p>
+                    </li>
+                </ul>
+            </div>
             <div className="List">
                 {cardList}
             </div>

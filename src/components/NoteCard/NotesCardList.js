@@ -81,7 +81,7 @@ function NotesCardList({notes, setNotes, notesLimit}){
     }
 
     let addCardBtn
-    if(notes.length >= auth.notesLimit){
+    if(notes.length >= 25){
         addCardBtn =
             <Alert variant="warning">
                 <Alert.Heading>Ой-ой!</Alert.Heading>
