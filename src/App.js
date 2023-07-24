@@ -10,6 +10,9 @@ import {consts} from "./config/consts";
 function App() {
 
     const [auth, setAuth] = useState(() => {
+
+        let authData = null
+
         return{
             token: null,
             username: null,

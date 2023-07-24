@@ -8,7 +8,7 @@ function Column({notes, droppableId, handleOnDeleteNote}){
     return(
         <StrictModeDroppable droppableId={droppableId.toString()} className="col-md-3">
             {(provided) => (
-                <div className="ToDo" {...provided.droppableProps} ref={provided.innerRef}>
+                <div className="TasksColumn" {...provided.droppableProps} ref={provided.innerRef}>
                     {notes?.map((note, index) => {
                         note.order = index
                         return(
