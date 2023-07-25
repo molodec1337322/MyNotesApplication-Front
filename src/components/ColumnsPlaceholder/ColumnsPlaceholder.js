@@ -5,8 +5,11 @@ import NoteCard from "../NoteCard/NoteCard";
 import {Alert} from "react-bootstrap";
 import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import Column from "../Column/Column";
+import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 
 function ColumnsPlaceholder({columns, notes}){
+
+    const [isCreateModalActive, setCreateModalActive] = useState(false)
 
     function handleOnDragEnd(result){
 
@@ -17,6 +20,10 @@ function ColumnsPlaceholder({columns, notes}){
     }
 
     function handleOnAddNote(title, text){
+
+    }
+
+    function handleOnAddColumn(title){
 
     }
 
@@ -33,7 +40,7 @@ function ColumnsPlaceholder({columns, notes}){
     else {
         addCardBtn =
             <div className="d-flex justify-content-center">
-                <CreateNewNoteCardButton notes={notes} onAddNoteHandler={handleOnAddNote}/>
+                <CreateNewNoteCardButton onAddNoteHandler={handleOnAddNote}/>
             </div>
     }
 
@@ -44,7 +51,7 @@ function ColumnsPlaceholder({columns, notes}){
                     <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} addCardBtn={addCardBtn}></Column>
                 ))}
             </DragDropContext>
-
+            <CreateNewColumnBtn onAddNewColumnHandler={handleOnAddColumn()}/>
         </div>
     )
 }
