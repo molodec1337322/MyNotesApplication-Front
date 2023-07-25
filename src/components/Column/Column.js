@@ -11,10 +11,11 @@ function Column({notes, col, handleOnDeleteNote, addCardBtn}){
             <StrictModeDroppable droppableId={col.id} className="col-md-3">
                 {(provided) => (
                     <div className="TaskColumn" {...provided.droppableProps} ref={provided.innerRef}>
-                        {notes?.map((note, index) => {
-                            note.order = index
+                        {notes.filter(note => {
+                            return note.columnId.toString() === col.id.toString()
+                        })?.map((note, index) => {
                             return(
-                                <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>
+                                <Draggable key={note.id} draggableId={note.id.toString()} index={note.order.toString()}>
                                     {(provided) => (
                                         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                             <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
