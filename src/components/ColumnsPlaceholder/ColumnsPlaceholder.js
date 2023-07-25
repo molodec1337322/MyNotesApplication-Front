@@ -53,9 +53,9 @@ function ColumnsPlaceholder({columns, notes}){
     return(
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
-                {cols.?map((column, index) => {
-                <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} addCardBtn={handleOnAddNote}></Column>
-            })}
+                {cols?.map((column, index) => (
+                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} addCardBtn={handleOnAddNote}></Column>
+                ))}
             </DragDropContext>
         </div>
     )
