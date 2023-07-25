@@ -8,18 +8,7 @@ import Column from "../Column/Column";
 
 function ColumnsPlaceholder({columns, notes}){
 
-    const [cols, setCols] = useState([
-        {
-            id: 0,
-            name: "to Do",
-            orderPalce: 0
-        },
-        {
-            id: 1,
-            name: "in progress",
-            orderPalce: 1
-        }
-    ])
+    const [cols, setCols] = useState()
 
     function handleOnDragEnd(result){
 

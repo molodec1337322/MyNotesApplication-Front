@@ -17,7 +17,48 @@ function Home() {
     const {auth, setAuth} = useContext(AuthContext)
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
-    const [notes, setNotes] = useState([])
+    const [columns, setColumns] = useState([
+        {
+            id: 0,
+            name: "to Do",
+            orderPalce: 0
+        },
+        {
+            id: 1,
+            name: "in progress",
+            orderPalce: 1
+        }
+    ])
+    const [notes, setNotes] = useState([
+        {
+            id: 0,
+            title: "1111",
+            text: "123654789*****",
+            columnId: "0",
+            orderPlace: "0"
+        },
+        {
+            id: 1,
+            title: "2222",
+            text: "125645345354****",
+            columnId: "1",
+            orderPlace: "1"
+        },
+        {
+            id: 2,
+            title: "33333",
+            text: "1236565465464569*****",
+            columnId: "1",
+            orderPlace: "0"
+        },
+        {
+            id: 0,
+            title: "44444444",
+            text: "1236778752877575*****",
+            columnId: "0",
+            orderPlace: "1"
+        }
+    ])
 
     function logout (){
         setAuth(prev => {
