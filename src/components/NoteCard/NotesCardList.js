@@ -7,6 +7,31 @@ import CreateNewNoteCardButton from "./CreateNewNoteCardButton";
 import {Alert} from "react-bootstrap";
 import {AuthContext} from "../../context";
 
+/*
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+УБРАТЬ ИЗ ИСПОЛЬЗОВАНИЯ
+!!!!!!!!
+!!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!
+ */
 function NotesCardList({notes, setNotes, notesLimit}){
 
     const {auth, setAuth} = useContext(AuthContext)

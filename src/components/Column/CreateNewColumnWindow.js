@@ -5,19 +5,19 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
 
     const [newColumn, setNewColumn] = useState(() => {
         return{
-            title: "",
+            name: "",
         }
     })
     const [message, setMessage] = useState("")
 
     function createNewColumn(e){
         e.preventDefault()
-        if(!newColumn.title || !newColumn.text){
+        if(!newColumn.name){
             setMessage("Поля не могут быть пустыми!")
             return
         }
         setActive(false)
-        onAddColumnHandler(newColumn.title)
+        onAddColumnHandler(newColumn.name)
     }
 
     function changeInput(e){
@@ -35,7 +35,7 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
             <h2>Новый столбец</h2>
             <Form onSubmit={createNewColumn}>
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Control name="title" type="text" placeholder="Заголовок" value={newColumn.title} onChange={changeInput}/>
+                    <Form.Control name="name" type="text" placeholder="Заголовок" value={newColumn.name} onChange={changeInput}/>
                 </Form.Group>
 
                 <div className="d-flex justify-content-center">

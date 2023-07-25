@@ -13,7 +13,7 @@ function CreateNewNoteCardButton({onAddNoteHandler}){
     }
 
     return(
-        <div className="CreateNewNoteCard">
+        <div>
             <Button variant="outline-success" className="rounded-circle btn-lg" onClick={CreateNewNote}>+</Button>
             <MyModal active={isModalActive} setActive={setModalActive}>
                 <CreateNewNoteWindow setActive={setModalActive} onAddNoteHandler={onAddNoteHandler}/>

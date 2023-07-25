@@ -7,9 +7,7 @@ import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import Column from "../Column/Column";
 import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 
-function ColumnsPlaceholder({columns, notes}){
-
-    const [isCreateModalActive, setCreateModalActive] = useState(false)
+function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
 
     function handleOnDragEnd(result){
 
@@ -23,8 +21,13 @@ function ColumnsPlaceholder({columns, notes}){
 
     }
 
-    function handleOnAddColumn(title){
-
+    function handleOnAddColumn(name){
+        let newColumn = {
+            id: columns.length,
+            name: name,
+            orderPlace: columns.length
+        }
+        setColumns([...columns, newColumn])
     }
 
     let addCardBtn
@@ -51,7 +54,7 @@ function ColumnsPlaceholder({columns, notes}){
                     <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} addCardBtn={addCardBtn}></Column>
                 ))}
             </DragDropContext>
-            <CreateNewColumnBtn onAddNewColumnHandler={handleOnAddColumn()}/>
+            <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>
         </div>
     )
 }

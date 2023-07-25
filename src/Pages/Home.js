@@ -78,7 +78,7 @@ function Home() {
             </Nav>
 
         board =
-            <ColumnsPlaceholder columns={columns} notes={notes}/>
+            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes}/>
     }
     else{
         buttons =
