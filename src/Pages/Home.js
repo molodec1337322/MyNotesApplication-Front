@@ -4,13 +4,9 @@ import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {AuthContext} from "../context";
-import NoteCard from "../components/NoteCard/NoteCard";
-import NotesCardList from "../components/NoteCard/NotesCardList";
-import "./sidebar.css"
 
 import "./Home.css"
-import axios from "axios";
-import {consts} from "../config/consts";
+import ColumnsPlaceholder from "../components/ColumnsPlaceholder/ColumnsPlaceholder";
 
 function Home() {
 
@@ -20,12 +16,12 @@ function Home() {
     const [columns, setColumns] = useState([
         {
             id: 0,
-            name: "to Do",
+            name: "Сделать",
             orderPalce: 0
         },
         {
             id: 1,
-            name: "in progress",
+            name: "Взято в работу",
             orderPalce: 1
         }
     ])
@@ -33,14 +29,14 @@ function Home() {
         {
             id: 0,
             title: "1111",
-            text: "123654789*****",
+            text: "12369*****",
             columnId: "0",
             orderPlace: "0"
         },
         {
             id: 1,
             title: "2222",
-            text: "125645345354****",
+            text: "1256454****",
             columnId: "1",
             orderPlace: "1"
         },
@@ -72,17 +68,17 @@ function Home() {
     }
 
     let buttons
-    let cardList
+    let board
 
-    if(auth.isAuth){
+    if(!auth.isAuth){
         buttons =
             <Nav className="justify-content-end d-flex">
                 <Navbar.Text>Вы вошли как: {auth.username}</Navbar.Text>
                 <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => logout}>Выйти</Button>
             </Nav>
 
-        cardList =
-            <NotesCardList notes={notes} setNotes={setNotes}/>
+        board =
+            <ColumnsPlaceholder columns={columns} notes={notes}/>
     }
     else{
         buttons =
@@ -97,7 +93,7 @@ function Home() {
                         <Login setActive={setLoginModalActive}/>
                     </MyModal>
                 </Nav>
-        cardList =
+        board =
             <div className="container-fluid row">
                 <div className="d-flex justify-content-center">
                     <h3>Для использования приложения вам необходимо</h3>
@@ -116,21 +112,8 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
-            <div id="sidebar-wrapper" className="min-vh-100 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
-                <ul className="list-unstyled components">
-                    <li className="navbar-item">
-                        <p>1</p>
-                    </li>
-                    <li className="navbar-item">
-                        <p>2</p>
-                    </li>
-                    <li className="navbar-item">
-                        <p>3</p>
-                    </li>
-                </ul>
-            </div>
             <div className="List">
-                {cardList}
+                {board}
             </div>
         </div>
     );
