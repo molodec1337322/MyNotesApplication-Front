@@ -25,10 +25,25 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
             const [reorderedItem] = items.splice(result.source.index, 1)
             reorderedItem.orderPlace = result.destination.index
             items.splice(result.destination.index, 0, reorderedItem)
+
             const allItems = [...otherItems, ...items]
-            console.log(notes)
-            console.log(allItems)
-            console.log("++++++++++++++")
+
+            setNotes(allItems)
+        }
+        else{
+            const itemsStart = Array.from(notes.filter(note => {return note.columnId.toString() === result.source.droppableId.toString()}))
+            const itemsEnd = Array.from(notes.filter(note => {return note.columnId.toString() === result.destination.droppableId.toString()}))
+            const otherItems = Array.from(notes.filter(note => {
+                return note.columnId.toString() !== result.source.droppableId.toString() && note.columnId.toString() !== result.destination.droppableId.toString()
+            }))
+
+            const [reorderedItem] = itemsStart.splice(result.source.index, 1)
+            reorderedItem.orderPlace = result.destination.index
+            reorderedItem.columnId = result.destination.droppableId
+            itemsEnd.splice(result.destination.index, 0, reorderedItem)
+
+            const allItems = [...otherItems, ...itemsStart, ...itemsEnd]
+
             setNotes(allItems)
         }
     }
