@@ -15,8 +15,9 @@ function Column({notes, col, handleOnDeleteNote, addCardBtn}){
                         {notes.filter(note => {
                             return note.columnId.toString() === col.id.toString()
                         })?.map((note, index) => {
+                            note.orderPlace = index
                             return(
-                                <Draggable key={note.id} draggableId={note.id.toString()} index={note.orderPlace.toString()}>
+                                <Draggable key={note.id} draggableId={note.id.toString()} index={note.orderPlace}>
                                     {(provided) => (
                                         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                             <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}/>
