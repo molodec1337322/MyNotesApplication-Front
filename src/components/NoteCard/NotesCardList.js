@@ -131,6 +131,7 @@ function NotesCardList({notes, setNotes, notesLimit}){
                         {(provided) => (
                             <div className="ToDo" {...provided.droppableProps} ref={provided.innerRef}>
                                 {toDoNotes?.map((note, index) => {
+                                    console.log(note.id.toString())
                                     note.order = index
                                     return(
                                         <Draggable key={note.id} draggableId={note.id.toString()} index={note.order}>

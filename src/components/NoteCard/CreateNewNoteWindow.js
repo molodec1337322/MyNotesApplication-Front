@@ -18,7 +18,7 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId}){
             return
         }
         setActive(false)
-        onAddNoteHandler(newNote.title, newNote.text, columnId)
+        onAddNoteHandler(newNote.title, newNote.text, columnId.toString())
     }
 
     function changeInput(e){

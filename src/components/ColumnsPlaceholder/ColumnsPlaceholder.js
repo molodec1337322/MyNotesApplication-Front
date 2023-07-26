@@ -10,7 +10,27 @@ import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
 
     function handleOnDragEnd(result){
+        if(!result.destination){
+            return;
+        }
 
+        if(result.destination.droppableId === result.source.droppableId && result.destination.index === result.source.index){
+            return;
+        }
+
+        if(result.destination.droppableId === result.source.droppableId){
+            const items = Array.from(notes.filter(note => {return note.columnId.toString() === result.source.droppableId.toString()}))
+            const otherItems = Array.from(notes.filter(note => {return note.columnId.toString() !== result.source.droppableId.toString()}))
+
+            const [reorderedItem] = items.splice(result.source.index, 1)
+            reorderedItem.orderPlace = result.destination.index
+            items.splice(result.destination.index, 0, reorderedItem)
+            const allItems = [...otherItems, ...items]
+            console.log(notes)
+            console.log(allItems)
+            console.log("++++++++++++++")
+            setNotes(allItems)
+        }
     }
 
     function handleOnDeleteNote(id, type){
@@ -30,35 +50,18 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
 
     function handleOnAddColumn(name){
         let newColumn = {
-            id: columns.length,
+            id: columns.length.toString(),
             name: name,
             orderPlace: columns.length
         }
         setColumns([...columns, newColumn])
     }
 
-    let addCardBtn
-    if(notes.length >= 25){
-        addCardBtn =
-            <Alert variant="warning">
-                <Alert.Heading>Ой-ой!</Alert.Heading>
-                <p>
-                    Кажется вы достигли лимита по созданию заметок. Если вы хотите создать новые, то вам придется удалить старие. Такие дела ¯\_(ツ)_/¯
-                </p>
-            </Alert>
-    }
-    else {
-        addCardBtn =
-            <div className="d-flex justify-content-center">
-                <CreateNewNoteCardButton onAddNoteHandler={handleOnAddNote}/>
-            </div>
-    }
-
     return(
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
-                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote} addCardBtn={addCardBtn}></Column>
+                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
                 ))}
             </DragDropContext>
             <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>

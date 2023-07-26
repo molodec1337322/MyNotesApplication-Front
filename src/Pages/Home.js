@@ -17,14 +17,14 @@ function Home() {
         {
             id: 0,
             name: "Сделать",
-            orderPalce: 0
+            orderPlace: 0
         },
         {
             id: 1,
             name: "Взято в работу",
-            orderPalce: 1
+            orderPlace: 1
         }
-    ])
+    ].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
     const [notes, setNotes] = useState([
         {
             id: 0,
@@ -54,7 +54,7 @@ function Home() {
             columnId: "0",
             orderPlace: "1"
         }
-    ])
+    ].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
 
     function logout (){
         setAuth(prev => {

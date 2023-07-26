@@ -28,7 +28,7 @@ function Column({notes, col, handleOnDeleteNote, handleOnAddNote}){
     return(
         <div className="d-inline-block Columns">
             <h4>{col.name}</h4>
-            <StrictModeDroppable droppableId={col.id} className="col-md-3">
+            <StrictModeDroppable droppableId={col.id.toString()} className="col-md-3">
                 {(provided) => (
                     <div className="TaskColumn" {...provided.droppableProps} ref={provided.innerRef}>
                         {notes.filter(note => {
