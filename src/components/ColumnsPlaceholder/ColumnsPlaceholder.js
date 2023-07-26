@@ -17,8 +17,15 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
 
     }
 
-    function handleOnAddNote(title, text){
-
+    function handleOnAddNote(title, text, columnId){
+        let newNote = {
+            id: notes.length,
+            title: title,
+            text: text,
+            orderPlace: notes.filter(note => {return note.columnId === columnId}).length,
+            columnId: columnId
+        }
+        setNotes([...notes, newNote])
     }
 
     function handleOnAddColumn(name){
@@ -51,7 +58,7 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
-                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} addCardBtn={addCardBtn}></Column>
+                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote} addCardBtn={addCardBtn}></Column>
                 ))}
             </DragDropContext>
             <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>

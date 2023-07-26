@@ -3,8 +3,27 @@ import {Draggable} from "react-beautiful-dnd";
 import NoteCard from "../NoteCard/NoteCard";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 import "./Column.css"
+import {Alert} from "react-bootstrap";
+import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 
-function Column({notes, col, handleOnDeleteNote, addCardBtn}){
+function Column({notes, col, handleOnDeleteNote, handleOnAddNote}){
+
+    let addCardBtn
+    if(notes.length >= 25){
+        addCardBtn =
+            <Alert variant="warning">
+                <Alert.Heading>Ой-ой!</Alert.Heading>
+                <p>
+                    Кажется вы достигли лимита по созданию заметок. Если вы хотите создать новые, то вам придется удалить старие. Такие дела ¯\_(ツ)_/¯
+                </p>
+            </Alert>
+    }
+    else {
+        addCardBtn =
+            <div className="d-flex justify-content-center">
+                <CreateNewNoteCardButton onAddNoteHandler={handleOnAddNote} columnId={col.id}/>
+            </div>
+    }
 
     return(
         <div className="d-inline-block Columns">
