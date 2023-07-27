@@ -9,15 +9,28 @@ import {consts} from "./config/consts";
 
 function App() {
 
-    const [auth, setAuth] = useState(() => {
+    const [auth, setAuth] = useState(async () => {
 
-        let authData = null
+        let resp = await axios.get(consts.API_SERVER + "/api/v1/Notes/GetLimit",
+            {},
+            {headers: {
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache",
+                    "Access-Control-Allow-Origin": "*",
+                }
+            })
+
+        let notesLimit = 10
+        if(resp.data.limit !== 0){
+            console.log(resp)
+            notesLimit = resp.data.limit
+        }
 
         return{
             token: null,
             username: null,
             isAuth: false,
-            notesLimit: 0
+            notesLimit: notesLimit
         }
     })
 
