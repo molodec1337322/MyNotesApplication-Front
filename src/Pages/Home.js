@@ -7,6 +7,7 @@ import {AuthContext} from "../context";
 
 import "./Home.css"
 import ColumnsPlaceholder from "../components/ColumnsPlaceholder/ColumnsPlaceholder";
+import MySidebar from "../components/MySidebar/MySidebar";
 
 function Home() {
 
@@ -56,6 +57,8 @@ function Home() {
         }
     ].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
 
+    const [boards, setBoards] = useState()
+
     function logout (){
         setAuth(prev => {
             return{
@@ -70,7 +73,7 @@ function Home() {
     let buttons
     let board
 
-    if(!auth.isAuth){
+    if(auth.isAuth){
         buttons =
             <Nav className="justify-content-end d-flex">
                 <Navbar.Text>Вы вошли как: {auth.username}</Navbar.Text>
@@ -96,8 +99,7 @@ function Home() {
         board =
             <div className="container-fluid row">
                 <div className="d-flex justify-content-center">
-                    <h3>Для использования приложения вам необходимо</h3>
-                    <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setLoginModalActive(true)}>Войти</Button>
+                    <h3>Для использования приложения вам необходимо авторизироваться!</h3>
                 </div>
             </div>
 
@@ -112,7 +114,10 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
-            <div className="List">
+            <div className="Sidebar">
+                <MySidebar boards={boards} setBoards={setBoards}/>
+            </div>
+            <div className="Board">
                 {board}
             </div>
         </div>

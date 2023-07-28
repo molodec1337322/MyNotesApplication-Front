@@ -48,8 +48,10 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
         }
     }
 
-    function handleOnDeleteNote(id, type){
-
+    function handleOnDeleteNote(id){
+        let items = Array.from(notes)
+        items.splice(items.findIndex(note => note.id === id), 1)
+        setNotes(items)
     }
 
     function handleOnAddNote(title, text, columnId){

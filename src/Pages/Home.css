@@ -1,4 +1,9 @@
 
-.List{
+.Sidebar{
+    display: flex;
+    height: 100%;
+}
+
+.Board{
     margin-top: 10px;
 }
