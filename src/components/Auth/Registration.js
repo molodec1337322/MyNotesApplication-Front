@@ -79,19 +79,19 @@ function Registration(){
         <div className="form">
             <h2>Регистрация</h2>
             <Form onSubmit={sendRegistrationData}>
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextUsername">
                     <FormControl name="username" type="username" placeholder="Имя пользователя" value={registration.username} onChange={changeInputRegister}/>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextEmail">
                     <FormControl name="email" type="email" placeholder="Почта (example@example.com)" value={registration.email} onChange={changeInputRegister}/>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextPassword">
                     <FormControl name="password" type="password" placeholder="Пароль" value={registration.password} onChange={changeInputRegister}/>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextPassword2">
                     <FormControl name="password2" type="password" placeholder="Повтор пароля" value={registration.password2} onChange={changeInputRegister}/>
                 </Form.Group>
 

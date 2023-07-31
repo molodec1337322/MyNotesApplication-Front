@@ -91,7 +91,9 @@ function Home() {
                         <Registration/>
                     </MyModal>
 
-                    <Button variant="success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setLoginModalActive(true)}>Вход</Button>
+                    <Button variant="success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => {
+                        console.log(auth.then(res => {console.log(res)}))
+                        setLoginModalActive(true)}}>Вход</Button>
                     <MyModal active={loginModalActive} setActive={setLoginModalActive}>
                         <Login setActive={setLoginModalActive}/>
                     </MyModal>
