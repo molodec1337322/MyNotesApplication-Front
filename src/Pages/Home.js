@@ -116,11 +116,14 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
-            <div className="Sidebar">
-                <MySidebar boards={boards} setBoards={setBoards}/>
-            </div>
-            <div className="Board">
-                {board}
+
+            <div className="container-fluid d-flex row-cols-3 ">
+                <div className="Sidebar">
+                    <MySidebar boards={boards} setBoards={setBoards}/>
+                </div>
+                <div className="Board">
+                    {board}
+                </div>
             </div>
         </div>
     );
