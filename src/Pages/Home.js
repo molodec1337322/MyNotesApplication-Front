@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 import MyModal from "../components/Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
-import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar, Offcanvas} from "react-bootstrap";
 import {AuthContext} from "../context/AuthContext";
 
 import "./Home.css"
@@ -112,16 +112,27 @@ function Home() {
         <div className="Home">
             <Navbar className="bg-body-secondary sticky-top lg">
                 <Container>
+                    <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>Меню</Button>
                     <Navbar.Brand href="/">My Notes App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     {buttons}
                 </Container>
             </Navbar>
-            <MySidebar active={sidebarActive} setActive={setSidebarActive} boards={boards} setBoards={setBoards}/>
-            <div className="container-fluid d-flex row-cols-3 ">
-                <div className="Board">
-                    {board}
-                </div>
+
+            <Offcanvas show={sidebarActive} onHide={() => setSidebarActive(false)}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Доски</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <Offcanvas.Body>
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                </Offcanvas.Body>
+            </Offcanvas>
+
+            <div className="Board">
+                {board}
             </div>
         </div>
     );
