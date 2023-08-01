@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import "./NoteCard.css"
 
 function NoteCard({note, onDeleteNoteHandler}) {

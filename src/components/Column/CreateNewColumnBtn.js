@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button} from "react-bootstrap";
-import MyModal from "../../Modal/MyModal";
+import MyModal from "../Modal/MyModal";
 import CreateNewColumnWindow from "./CreateNewColumnWindow";
 
 function CreateNewColumnBtn({onAddColumnHandler}){

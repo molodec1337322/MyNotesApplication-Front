@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import MyModal from "../Modal/MyModal";
+import MyModal from "../components/Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
@@ -14,6 +14,7 @@ function Home() {
     const {auth, setAuth} = useContext(AuthContext)
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
+    const [sidebarActive, setSidebarActive] = useState(false)
     const [columns, setColumns] = useState([
         {
             id: 0,
@@ -116,7 +117,7 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
-            <MySidebar boards={boards} setBoards={setBoards}/>
+            <MySidebar active={sidebarActive} setActive={setSidebarActive} boards={boards} setBoards={setBoards}/>
             <div className="container-fluid d-flex row-cols-3 ">
                 <div className="Board">
                     {board}
