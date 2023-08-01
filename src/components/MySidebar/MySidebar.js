@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {CDBSidebar, CDBSidebarContent, CDBSidebarHeader} from "cdbreact";
+import {CDBSidebar, CDBSidebarContent, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem} from "cdbreact";
 
 function MySidebar({boards, setBoards}){
 
@@ -8,26 +8,30 @@ function MySidebar({boards, setBoards}){
     const [open, setOpen] = useState()
 
     return (
-        <CDBSidebar textColer="#aaa" backgroundColor="rgb(230, 230, 230)">
-            <CDBSidebarHeader>
-                <h5>Ваши доски</h5>
-            </CDBSidebarHeader>
-            <CDBSidebarContent className="sidebar-content">
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-            </CDBSidebarContent>
-            <CDBSidebarHeader>
-                <h5>Участие в досках</h5>
-            </CDBSidebarHeader>
-            <CDBSidebarContent className="sidebar-content">
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-                <p>1</p>
-                <p>2</p>
-            </CDBSidebarContent>
-        </CDBSidebar>
+        <div
+            style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}
+        >
+            <CDBSidebar textColer="#aaa" backgroundColor="rgb(230, 230, 230)">
+                <CDBSidebarHeader>
+                    <h5>Ваши доски</h5>
+                </CDBSidebarHeader>
+
+                <CDBSidebarContent>
+                    <CDBSidebarMenu title="Sidemenu 1">
+                        <CDBSidebarMenuItem>submenu 1</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem>submenu 2</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem>submenu 3</CDBSidebarMenuItem>
+                    </CDBSidebarMenu>
+
+                    <CDBSidebarMenu title="Sidemenu 1">
+                        <CDBSidebarMenuItem>submenu 1</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem>submenu 2</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem>submenu 3</CDBSidebarMenuItem>
+                    </CDBSidebarMenu>
+                </CDBSidebarContent>
+
+            </CDBSidebar>
+        </div>
     )
 
 }

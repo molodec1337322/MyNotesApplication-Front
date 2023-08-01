@@ -3,7 +3,7 @@ import MyModal from "../Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {AuthContext} from "../context";
+import {AuthContext} from "../context/AuthContext";
 
 import "./Home.css"
 import ColumnsPlaceholder from "../components/ColumnsPlaceholder/ColumnsPlaceholder";
@@ -116,11 +116,8 @@ function Home() {
                     {buttons}
                 </Container>
             </Navbar>
-
+            <MySidebar boards={boards} setBoards={setBoards}/>
             <div className="container-fluid d-flex row-cols-3 ">
-                <div className="Sidebar">
-                    <MySidebar boards={boards} setBoards={setBoards}/>
-                </div>
                 <div className="Board">
                     {board}
                 </div>

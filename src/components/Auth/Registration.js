@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react'
 import axios from 'axios';
 import validator from 'validator';
 import {consts} from "../../config/consts";
-import {AuthContext} from "../../context";
+import {AuthContext} from "../../context/AuthContext";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 
 function Registration(){

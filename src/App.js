@@ -3,7 +3,7 @@ import MyButton from "./components/MyButton/MyButton";
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Home from "./Pages/Home"
 import About from "./Pages/About"
-import {AuthContext} from "./context";
+import {AuthContext} from "./context/AuthContext";
 import axios from "axios";
 import {consts} from "./config/consts";
 
