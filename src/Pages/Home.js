@@ -58,7 +58,34 @@ function Home() {
         }
     ].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
 
-    const [boards, setBoards] = useState()
+    const [ownedBoards, setOwnedBoards] = useState([
+        {
+            id: 0,
+            name: "Board 1"
+        },
+        {
+            id: 1,
+            name: "Board 2"
+        },
+        {
+            id: 3,
+            name: "Board 111"
+        }
+    ])
+    const [guestBoards, setGuestBoards] = useState([
+            {
+                id: 45,
+                name: "Board 15555"
+            },
+            {
+                id: 78,
+                name: "Board 6564"
+            },
+            {
+                id: 66,
+                name: "Board 4561"
+            }
+    ])
 
     function logout (){
         setAuth(prev => {
@@ -73,13 +100,17 @@ function Home() {
 
     let buttons
     let board
+    let sidebar
 
-    if(auth.isAuth){
+    if(!auth.isAuth){
         buttons =
             <Nav className="justify-content-end d-flex">
                 <Navbar.Text>Вы вошли как: {auth.username}</Navbar.Text>
                 <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => logout}>Выйти</Button>
             </Nav>
+
+        sidebar =
+            <MySidebar active={sidebarActive} setActive={setSidebarActive} ownedBoards={ownedBoards} setOwnedBoards={setOwnedBoards} guestBoards={guestBoards} setGuestBoards={setGuestBoards}/>
 
         board =
             <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes}/>
@@ -99,13 +130,13 @@ function Home() {
                         <Login setActive={setLoginModalActive}/>
                     </MyModal>
                 </Nav>
+
         board =
             <div className="container-fluid row">
                 <div className="d-flex justify-content-center">
                     <h3>Для использования приложения вам необходимо авторизироваться!</h3>
                 </div>
             </div>
-
     }
 
     return (
@@ -119,17 +150,7 @@ function Home() {
                 </Container>
             </Navbar>
 
-            <Offcanvas show={sidebarActive} onHide={() => setSidebarActive(false)}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Доски</Offcanvas.Title>
-                </Offcanvas.Header>
-
-                <Offcanvas.Body>
-                    <p>1</p>
-                    <p>2</p>
-                    <p>3</p>
-                </Offcanvas.Body>
-            </Offcanvas>
+            {sidebar}
 
             <div className="Board">
                 {board}

@@ -37,7 +37,8 @@ function App() {
             token: null,
             username: null,
             isAuth: false,
-            notesLimit: notesLimit
+            notesLimit: notesLimit,
+            currentBoardId: -1
         }
     })
 
