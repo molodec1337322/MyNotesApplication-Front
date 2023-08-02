@@ -15,6 +15,7 @@ function Home() {
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
     const [sidebarActive, setSidebarActive] = useState(false)
+    const [currentBoard, setCurrentBoard] = useState(-1)
     const [columns, setColumns] = useState([
         {
             id: 0,
@@ -87,7 +88,7 @@ function Home() {
             }
     ])
 
-    function logout (){
+    function logout(){
         setAuth(prev => {
             return{
                 ...prev,
@@ -96,6 +97,12 @@ function Home() {
                 isAuth: false
             }
         })
+    }
+
+    function onBoardChangeHandler(boardId, isBoardOwner){
+        setNotes([])
+        setColumns([])
+        auth.isBoardOwner = isBoardOwner
     }
 
     let buttons
@@ -110,7 +117,11 @@ function Home() {
             </Nav>
 
         sidebar =
-            <MySidebar active={sidebarActive} setActive={setSidebarActive} ownedBoards={ownedBoards} setOwnedBoards={setOwnedBoards} guestBoards={guestBoards} setGuestBoards={setGuestBoards}/>
+            <MySidebar active={sidebarActive} setActive={setSidebarActive}
+                       ownedBoards={ownedBoards} guestBoards={guestBoards}
+                       currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
+                       onBoardChanged={onBoardChangeHandler}
+            />
 
         board =
             <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes}/>

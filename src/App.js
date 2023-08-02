@@ -38,7 +38,7 @@ function App() {
             username: null,
             isAuth: false,
             notesLimit: notesLimit,
-            currentBoardId: -1
+            isBoardOwner: false
         }
     })
 

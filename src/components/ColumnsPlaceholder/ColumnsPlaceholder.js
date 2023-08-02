@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {DragDropContext, Draggable} from "react-beautiful-dnd";
 import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
 import NoteCard from "../NoteCard/NoteCard";
@@ -6,10 +6,14 @@ import {Alert} from "react-bootstrap";
 import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import Column from "../Column/Column";
 import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
+import {AuthContext} from "../../context/AuthContext";
 
 function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
 
+    const {auth, setAuth} = useContext(AuthContext)
+
     function handleOnDragEnd(result){
+
         if(!result.destination){
             return;
         }
@@ -74,6 +78,12 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
         setColumns([...columns, newColumn])
     }
 
+    let addCol
+    if(auth.isBoardOwner){
+        addCol =
+            <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>
+    }
+
     return(
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -81,7 +91,7 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
                     <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
                 ))}
             </DragDropContext>
-            <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>
+            {addCol}
         </div>
     )
 }
