@@ -4,7 +4,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import axios from "axios";
 
-function Login({setActive}){
+function Login({setActive, onAuth}){
     const {auth, setAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
@@ -57,6 +57,7 @@ function Login({setActive}){
                             isAuth: true
                         }
                     })
+                    onAuth(res.data.token)
                     setActive(false)
                 }
             }).catch(e => {
