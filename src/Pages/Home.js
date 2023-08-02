@@ -154,7 +154,7 @@ function Home() {
         <div className="Home">
             <Navbar className="bg-body-secondary sticky-top lg">
                 <Container>
-                    <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>Меню</Button>
+                    <Button variant="Light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>Доски</Button>
                     <Navbar.Brand href="/">My Notes App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     {buttons}
