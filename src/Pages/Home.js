@@ -107,7 +107,9 @@ function Home() {
             />
 
         board =
-            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
+            <div>
+                <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
+            </div>
     }
     else{
         buttons =

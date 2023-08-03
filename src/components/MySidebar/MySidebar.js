@@ -8,7 +8,7 @@ function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, s
     return (
         <Offcanvas show={active} onHide={() => setActive(false)}>
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Доски</Offcanvas.Title>
+                <Offcanvas.Title>Меню</Offcanvas.Title>
             </Offcanvas.Header>
 
             <Offcanvas.Body>
