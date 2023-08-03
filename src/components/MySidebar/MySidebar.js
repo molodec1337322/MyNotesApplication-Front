@@ -15,7 +15,7 @@ function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, s
 
                 <Accordion defaultActiveKey="-1">
                     <Accordion.Item eventKey="0">
-                        <Accordion.Header>Ваши доски</Accordion.Header>
+                        <Accordion.Header><Offcanvas.Title>Ваши доски</Offcanvas.Title></Accordion.Header>
                         <Accordion.Body>
                             {ownedBoards?.map((board, index) => (
                                 <MySidebarBoardButton name={board.name} boardId={board.id}
@@ -27,7 +27,7 @@ function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, s
                     </Accordion.Item>
 
                     <Accordion.Item eventKey="1">
-                        <Accordion.Header>Гостевые доски</Accordion.Header>
+                        <Accordion.Header><Offcanvas.Title>Гостевые доски</Offcanvas.Title></Accordion.Header>
                         <Accordion.Body>
                             {guestBoards?.map((board, index) => (
                                 <MySidebarBoardButton name={board.name} boardId={board.id}
