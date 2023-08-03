@@ -24,6 +24,9 @@ function Home() {
     const [ownedBoards, setOwnedBoards] = useState([])
     const [guestBoards, setGuestBoards] = useState([])
 
+    const [guestBoardUsers, setGuestBoardUsers] = useState([])
+    const [ownersBoardUser, setOwnersBoardUsers] = useState([])
+
     const [currentBoardName, setCurrentBoardName] = useState("")
     const [currentBoardId, setCurrentBoardId] = useState(-1)
     const [columns, setColumns] = useState([])
@@ -48,6 +51,20 @@ function Home() {
                 Authorization: auth.token
                 }
             })
+
+        let respOwners = await axios.get(consts.API_SERVER + "/api/v1/Boards/Owners/" + boardId,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+        let respGuest = await axios.get(consts.API_SERVER + "/api/v1/Boards/Guests/" + boardId,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
+        setOwnersBoardUsers(respOwners.data)
+        setGuestBoardUsers(respGuest.data)
 
         setCurrentBoardName(boardName)
         let columns = []
@@ -138,13 +155,15 @@ function Home() {
                             </svg>}>
                             <Dropdown.Item><h5>Создатели</h5></Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item>User1</Dropdown.Item>
-                            <Dropdown.Item>User1</Dropdown.Item>
-                            <Dropdown.Item>User1</Dropdown.Item>
+                            {ownersBoardUser?.map((owner, index) => (
+                                <Dropdown.Item>{owner.username}</Dropdown.Item>
+                            ))}
                             <Dropdown.Divider />
                             <Dropdown.Item><h5>Гости</h5></Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item>User23458</Dropdown.Item>
+                            {guestBoardUsers?.map((guest, index) => (
+                                <Dropdown.Item>{guest.username}</Dropdown.Item>
+                            ))}
                         </DropdownButton>
                     </div>
                     <div className="col-3">
