@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap";
 import MyModal from "../Modal/MyModal";
 import CreateNewNoteWindow from "./CreateNewNoteWindow";
 
-function CreateNewNoteCardButton({onAddNoteHandler, columnId}){
+function CreateNewNoteCardButton({onAddNoteHandler, columnId, boardId}){
 
     const [isModalActive, setModalActive] = useState(false)
 
@@ -16,7 +16,7 @@ function CreateNewNoteCardButton({onAddNoteHandler, columnId}){
         <div>
             <Button variant="outline-success" className="rounded-circle btn-lg" onClick={CreateNewNote}>+</Button>
             <MyModal active={isModalActive} setActive={setModalActive}>
-                <CreateNewNoteWindow setActive={setModalActive} onAddNoteHandler={onAddNoteHandler} columnId={columnId}/>
+                <CreateNewNoteWindow setActive={setModalActive} onAddNoteHandler={onAddNoteHandler} columnId={columnId} boardId={boardId}/>
             </MyModal>
         </div>
     )

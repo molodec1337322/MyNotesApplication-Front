@@ -60,27 +60,33 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
         setNotes(items)
     }
 
-    function handleOnAddNote(title, text, columnId){
+    async function handleOnAddNote(name, text, columnId, boardId){
+
         let newNote = {
             id: notes.length,
-            title: title,
+            name: name,
             text: text,
             orderPlace: notes.filter(note => {return note.columnId === columnId}).length,
-            columnId: columnId
+            columnId: columnId,
+            boardId: boardId
         }
-        setNotes([...notes, newNote])
+
+        let resp= await axios.post(consts.API_SERVER + "/api/v1/Notes/Add",
+            newNote,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
+        setNotes(prev => {
+            return[
+                ...prev,
+                resp.data
+            ]
+        })
     }
 
     async function handleOnAddColumn(name){
-        /*
-        let newColumn = {
-            id: columns.length.toString(),
-            name: name,
-            orderPlace: columns.length
-        }
-        setColumns([...columns, newColumn])
-
-         */
 
         let newColumn = {
             name: name,
@@ -114,7 +120,7 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
         <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
-                    <Column notes={notes} col={column} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
+                    <Column notes={notes} col={column} boardId={currentBoardId} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
                 ))}
             </DragDropContext>
             {addCol}

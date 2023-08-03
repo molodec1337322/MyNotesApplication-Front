@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 
-function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId}){
+function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
 
     const [newNote, setNewNote] = useState(() => {
         return{
@@ -18,7 +18,7 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId}){
             return
         }
         setActive(false)
-        onAddNoteHandler(newNote.title, newNote.text, columnId.toString())
+        onAddNoteHandler(newNote.title, newNote.text, columnId.toString(), boardId.toString())
     }
 
     function changeInput(e){

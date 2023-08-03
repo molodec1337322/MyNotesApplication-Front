@@ -10,7 +10,7 @@ function NoteCard({note, onDeleteNoteHandler}) {
     const [cardData, setCardData] = useState(() => {
         return{
             id: note.id,
-            title: note.title,
+            name: note.name,
             text: note.text,
             type: note.type
         }
@@ -33,7 +33,7 @@ function NoteCard({note, onDeleteNoteHandler}) {
     return(
         <Card className="NoteCard border-0 md-3">
             <Card.Body>
-                <Card.Title>{cardData.title}</Card.Title>
+                <Card.Title>{cardData.name}</Card.Title>
                 <Card.Text>
                     {cardData.text}
                 </Card.Text>

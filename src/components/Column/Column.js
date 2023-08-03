@@ -7,7 +7,7 @@ import {Alert} from "react-bootstrap";
 import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import {AuthContext} from "../../context/AuthContext";
 
-function Column({notes, col, handleOnDeleteNote, handleOnAddNote}){
+function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote}){
 
     const {auth, setAuth} = useContext(AuthContext)
 
@@ -26,7 +26,7 @@ function Column({notes, col, handleOnDeleteNote, handleOnAddNote}){
         else {
             addCardBtn =
                 <div className="d-flex justify-content-center">
-                    <CreateNewNoteCardButton onAddNoteHandler={handleOnAddNote} columnId={col.id}/>
+                    <CreateNewNoteCardButton onAddNoteHandler={handleOnAddNote} columnId={col.id} boardId={boardId}/>
                 </div>
         }
     }
