@@ -78,6 +78,8 @@ function Login({setActive, onAuth}){
         <div className="form">
             <h2>Вход</h2>
             <Form onSubmit={sendLoginData}>
+
+                <br/>
                 <Form.Group as={Row} className="mb-4" controlId="formPlaintextEmail">
                     <FormControl name="email" type="email" placeholder="Почта (example@example.com)" value={login.email} onChange={changeInputLogin}/>
                 </Form.Group>
@@ -86,9 +88,12 @@ function Login({setActive, onAuth}){
                     <FormControl name="password" type="password" placeholder="Пароль" value={login.password} onChange={changeInputLogin}/>
                 </Form.Group>
 
+                <br/>
+
                 <div className="d-flex justify-content-center">
                     <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Войти</Button>
                 </div>
+
 
                 <div  className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

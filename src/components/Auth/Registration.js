@@ -79,6 +79,8 @@ function Registration(){
         <div className="form">
             <h2>Регистрация</h2>
             <Form onSubmit={sendRegistrationData}>
+
+                <br/>
                 <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextUsername">
                     <FormControl name="username" type="username" placeholder="Имя пользователя" value={registration.username} onChange={changeInputRegister}/>
                 </Form.Group>
@@ -94,6 +96,8 @@ function Registration(){
                 <Form.Group as={Row} className="mb-3" controlId="formRegistrationPlaintextPassword2">
                     <FormControl name="password2" type="password" placeholder="Повтор пароля" value={registration.password2} onChange={changeInputRegister}/>
                 </Form.Group>
+
+                <br/>
 
                 <div className="d-flex justify-content-center">
                     <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Зарегестрироваться</Button>
