@@ -22,7 +22,7 @@ function Home() {
     const [ownedBoards, setOwnedBoards] = useState([])
     const [guestBoards, setGuestBoards] = useState([])
 
-    const [currentBoard, setCurrentBoard] = useState(-1)
+    const [currentBoardId, setCurrentBoardId] = useState(-1)
     const [columns, setColumns] = useState([].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
     const [notes, setNotes] = useState([].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
 
@@ -72,7 +72,6 @@ function Home() {
     }
 
     async function onAuth(token){
-        console.log(token)
         let respBoardsOwned = await axios.get(consts.API_SERVER + "/api/v1/Boards/AllOwned",
             {headers: {
                     Authorization: token
@@ -103,12 +102,12 @@ function Home() {
         sidebar =
             <MySidebar active={sidebarActive} setActive={setSidebarActive}
                        ownedBoards={ownedBoards} guestBoards={guestBoards}
-                       currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
+                       currentBoard={currentBoardId} setCurrentBoard={setCurrentBoardId}
                        onBoardChanged={onBoardChangeHandler}
             />
 
         board =
-            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes}/>
+            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
     }
     else{
         buttons =

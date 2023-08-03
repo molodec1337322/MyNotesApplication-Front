@@ -7,8 +7,10 @@ import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import Column from "../Column/Column";
 import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 import {AuthContext} from "../../context/AuthContext";
+import axios from "axios";
+import {consts} from "../../config/consts";
 
-function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
+function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardId}){
 
     const {auth, setAuth} = useContext(AuthContext)
 
@@ -69,13 +71,37 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes}){
         setNotes([...notes, newNote])
     }
 
-    function handleOnAddColumn(name){
+    async function handleOnAddColumn(name){
+        /*
         let newColumn = {
             id: columns.length.toString(),
             name: name,
             orderPlace: columns.length
         }
         setColumns([...columns, newColumn])
+
+         */
+
+        let newColumn = {
+            name: name,
+            orderPlace: columns.length,
+            boardId: currentBoardId
+        }
+
+        let resp = await axios.post(consts.API_SERVER + "/api/v1/Columns/Create",
+            newColumn,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
+        setColumns(prev => {
+            return[
+                ...prev,
+                resp.data
+            ]
+        })
+
     }
 
     let addCol
