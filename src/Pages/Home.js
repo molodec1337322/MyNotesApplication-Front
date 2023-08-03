@@ -22,9 +22,10 @@ function Home() {
     const [ownedBoards, setOwnedBoards] = useState([])
     const [guestBoards, setGuestBoards] = useState([])
 
+    const [currentBoardName, setCurrentBoardName] = useState("")
     const [currentBoardId, setCurrentBoardId] = useState(-1)
-    const [columns, setColumns] = useState([].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
-    const [notes, setNotes] = useState([].sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace)))
+    const [columns, setColumns] = useState([])
+    const [notes, setNotes] = useState([])
 
 
     function logout(){
@@ -38,7 +39,7 @@ function Home() {
         })
     }
 
-    async function onBoardChangeHandler(boardId, isBoardOwner){
+    async function onBoardChangeHandler(boardName, boardId, isBoardOwner){
 
         let respColumns = await axios.get(consts.API_SERVER + "/api/v1/Columns/FromBoard/" + boardId,
             {headers: {
@@ -46,6 +47,7 @@ function Home() {
                 }
             })
 
+        setCurrentBoardName(boardName)
         let columns = []
         let notes = []
 
@@ -61,8 +63,11 @@ function Home() {
                 ]
         }
 
+        columns.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
+
         setNotes(notes)
         setColumns(columns)
+
         setAuth(prev => {
             return{
                 ...prev,
@@ -96,7 +101,7 @@ function Home() {
         buttons =
             <Nav className="justify-content-end d-flex">
                 <Navbar.Text>Вы вошли как: {auth.username}</Navbar.Text>
-                <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => logout}>Выйти</Button>
+                <Button variant="outline-danger" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={logout}>Выйти</Button>
             </Nav>
 
         sidebar =
@@ -107,9 +112,7 @@ function Home() {
             />
 
         board =
-            <div>
                 <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
-            </div>
     }
     else{
         buttons =
@@ -137,14 +140,41 @@ function Home() {
         <div className="Home">
             <Navbar className="bg-body-secondary sticky-top lg">
                 <Container>
-                    <Button variant="Light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>Доски</Button>
-                    <Navbar.Brand href="/">My Notes App</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Nav className="justify-content-start d-flex">
+                        <Button variant="Light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                 className="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </Button>
+                        <Navbar.Brand href="/">My Notes App</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    </Nav>
+
                     {buttons}
                 </Container>
             </Navbar>
 
             {sidebar}
+
+            <br/>
+            <div className="BoardNav container">
+                <div className="row">
+                    <div className="col-4 d-flex">
+                        <h4>{currentBoardName}</h4>
+                    </div>
+                    <div className="col-4">
+
+                    </div>
+                    <div className="col-4 d-flex">
+                        <Button className="mx-lg-2 mx-0 my-lg-0 my-2">---</Button>
+                        <Button className="mx-lg-2 mx-0 my-lg-0 my-2">+++</Button>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
 
             <div className="Board">
                 {board}

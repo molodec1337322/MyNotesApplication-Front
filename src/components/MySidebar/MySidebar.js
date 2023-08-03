@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {CDBSidebar, CDBSidebarContent, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem} from "cdbreact";
-import {Offcanvas} from "react-bootstrap";
+import {Accordion, Offcanvas} from "react-bootstrap";
 import MySidebarBoardButton from "./MySidebarBoardButton";
 
 function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, setCurrentBoard, onBoardChanged}){
@@ -12,20 +12,33 @@ function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, s
             </Offcanvas.Header>
 
             <Offcanvas.Body>
-                <Offcanvas.Title>Ваши доски</Offcanvas.Title>
-                {ownedBoards?.map((board, index) => (
-                    <MySidebarBoardButton name={board.name} boardId={board.id}
-                                          currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
-                                          onBoardChanged={onBoardChanged} isOwner={true}
-                    />
-                ))}
-                <Offcanvas.Title>Гостевые доски</Offcanvas.Title>
-                {guestBoards?.map((board, index) => (
-                    <MySidebarBoardButton name={board.name} boardId={board.id}
-                                          currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
-                                          onBoardChanged={onBoardChanged} isOwner={false}
-                    />
-                ))}
+
+                <Accordion defaultActiveKey="-1">
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>Ваши доски</Accordion.Header>
+                        <Accordion.Body>
+                            {ownedBoards?.map((board, index) => (
+                                <MySidebarBoardButton name={board.name} boardId={board.id}
+                                                      currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
+                                                      onBoardChanged={onBoardChanged} isOwner={true}
+                                />
+                            ))}
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="1">
+                        <Accordion.Header>Гостевые доски</Accordion.Header>
+                        <Accordion.Body>
+                            {guestBoards?.map((board, index) => (
+                                <MySidebarBoardButton name={board.name} boardId={board.id}
+                                                      currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}
+                                                      onBoardChanged={onBoardChanged} isOwner={false}
+                                />
+                            ))}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+
             </Offcanvas.Body>
         </Offcanvas>
     )

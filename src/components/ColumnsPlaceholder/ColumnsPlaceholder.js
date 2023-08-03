@@ -34,7 +34,8 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
             const allItems = [...otherItems, ...items]
 
-            setNotes(allItems)
+            updateOrderPlace(allItems)
+            //setNotes(allItems)
         }
         else{
             const itemsStart = Array.from(notes.filter(note => {return note.columnId.toString() === result.source.droppableId.toString()}))
@@ -50,12 +51,36 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
             const allItems = [...otherItems, ...itemsStart, ...itemsEnd]
 
-            setNotes(allItems)
+            updateOrderPlace(allItems)
+            //setNotes(allItems)
         }
     }
 
-    function handleOnDeleteNote(id){
+    async function updateOrderPlace(notes){
+        let updatedNotes = {
+            boardId: currentBoardId,
+            notes: notes,
+        }
+
+        let resp = await axios.put(consts.API_SERVER + "/api/v1/Notes/UpdatePlacement",
+            updatedNotes,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
+        setNotes(notes)
+    }
+
+    async function handleOnDeleteNote(id){
         let items = Array.from(notes)
+
+        let resp = await axios.delete(consts.API_SERVER + "/api/v1/Notes/Delete/" + id,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
         items.splice(items.findIndex(note => note.id === id), 1)
         setNotes(items)
     }

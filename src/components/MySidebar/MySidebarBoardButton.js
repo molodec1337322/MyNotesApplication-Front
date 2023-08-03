@@ -9,7 +9,7 @@ function MySidebarBoardButton({name, boardId, currentBoard, setCurrentBoard, onB
             <Button variant="Light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => {
                 if(currentBoard !== boardId) {
                     setCurrentBoard(boardId)
-                    onBoardChanged(boardId, isOwner)
+                    onBoardChanged(name, boardId, isOwner)
                 }
             }}>{name}</Button>
         </div>
