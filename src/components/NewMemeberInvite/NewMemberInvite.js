@@ -22,7 +22,7 @@ function NewMemberInvite({setActive, currentBoardId}){
 
     return(
         <div className="form">
-            <h2>Вход</h2>
+            <h3>Приглашение на доску</h3>
             <Form onSubmit={sendInvitation}>
                 <Form.Group as={Row} className="mb-4" controlId="formPlaintextEmail">
                     <FormControl name="email" type="memberEmail" placeholder="Почта (example@example.com)" value={email} onChange={changeInputLogin}/>
