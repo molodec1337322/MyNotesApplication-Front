@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react'
 import {consts} from "../../config/consts";
 import {AuthContext} from "../../context/AuthContext";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 function Login({setActive, onAuth}){
@@ -25,12 +26,8 @@ function Login({setActive, onAuth}){
         })
     }
 
-    function jwtDecode(token) {
-        return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-    }
-
     function getUsernameFromJWT(jwt){
-        let decodedJWT = jwtDecode(jwt.split(' ')[1])
+        let decodedJWT = jwt_decode(jwt.split(' ')[1])
         console.log(decodedJWT)
         return decodedJWT
     }
