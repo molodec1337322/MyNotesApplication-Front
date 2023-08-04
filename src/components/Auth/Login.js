@@ -28,8 +28,7 @@ function Login({setActive, onAuth}){
 
     function getUsernameFromJWT(jwt){
         let decodedJWT = jwt_decode(jwt.split(' ')[1])
-        console.log(decodedJWT)
-        return decodedJWT
+        return decodedJWT["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
     }
 
     function sendLoginData(e){
