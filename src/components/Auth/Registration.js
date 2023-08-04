@@ -50,12 +50,15 @@ function Registration(){
             //alert("Repeated password incorrectly")
             setMessage("Пароли не совпадают")
         }
+        /*
         else if(!validator.isStrongPassword(registration.password, {minSymbols: 2})){
             //alert("Password must consist of one lowercase, uppercase letter and number, at least 2 characters")
             setMessage("Пароль должен содержать как минимум одну заглавную букву, одну строчную и одну цифру")
         }
+
+         */
         else{
-            axios.post(consts.API_SERVER + "api/Auth/Registration", {
+            axios.post(consts.API_SERVER + "/api/v1/Auth/Registration", {
                 username: registration.username,
                 email: registration.email,
                 password: registration.password,
@@ -68,7 +71,8 @@ function Registration(){
                     //alert("Email or username already in use")
                     setMessage("Имя пользователя или почта уже заняты")
                 }
-            }).catch(() => {
+            }).catch((ex) => {
+                console.log(ex)
                 //alert("An error occurred on the server")
                 setMessage("Во время выполнения запроса произошла ошибка")
             })

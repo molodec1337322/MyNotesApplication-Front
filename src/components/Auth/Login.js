@@ -25,8 +25,14 @@ function Login({setActive, onAuth}){
         })
     }
 
+    function jwtDecode(token) {
+        return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+    }
+
     function getUsernameFromJWT(jwt){
-        return jwt.length
+        let decodedJWT = jwtDecode(jwt.split(' ')[1])
+        console.log(decodedJWT)
+        return decodedJWT
     }
 
     function sendLoginData(e){
