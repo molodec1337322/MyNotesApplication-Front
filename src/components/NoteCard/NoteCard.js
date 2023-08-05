@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Button, Card, DropdownButton} from "react-bootstrap";
+import {Button, Card, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
 import "./NoteCard.css"
 import {AuthContext} from "../../context/AuthContext";
 
@@ -40,28 +40,44 @@ function NoteCard({note, onDeleteNoteHandler}) {
 
         parametersButton =
             <div>
-                <DropdownButton variant="bg-transparent-danger" className="pull-right mx-lg-2 mx-0 my-lg-0 my-2" id="dropdown-note-params-button" title={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         className="bi bi-three-dots" viewBox="0 0 16 16">
-                        <path
-                            d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-                    </svg>}>
+                <Dropdown id="dropdown-note-params-button">
 
-                </DropdownButton>
+                    <Dropdown.Toggle variant="light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                            <path
+                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item>
+                            <Button variant="primary" className="container-fluid">Редактировать</Button>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Button onClick={deleteNote} className="container-fluid" variant="outline-danger">Удалить</Button>
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+
+                </Dropdown>
             </div>
     }
 
     return(
         <Card className="NoteCard border-0 md-3">
             <Card.Body>
-                <div className="container-fluid d-flex">
-                    <Card.Title>{cardData.name}</Card.Title>
-                    {parametersButton}
-                </div>
+                <Row>
+                    <Col md="9">
+                        <Card.Title>{cardData.name}</Card.Title>
+                    </Col>
+                    <Col md="3">
+                        {parametersButton}
+                    </Col>
+                </Row>
+
                 <Card.Text>
                     {cardData.text}
                 </Card.Text>
-                {delBtn}
             </Card.Body>
         </Card>
     )

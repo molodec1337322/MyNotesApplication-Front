@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 import MyModal from "../components/Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
-import {Button, Container, Dropdown, DropdownButton, Nav, Navbar, Offcanvas} from "react-bootstrap";
+import {Button, Col, Container, Dropdown, DropdownButton, Form, Nav, Navbar, Offcanvas, Row} from "react-bootstrap";
 import {AuthContext} from "../context/AuthContext";
 
 import "./Home.css"
@@ -135,18 +135,13 @@ function Home() {
             <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
 
         boardNav =
-            <div className="row">
-                <div className="col-3 justify-content-start">
+            <Row>
+                <Col>
                     <h4>{currentBoardName}</h4>
-                </div>
-                <div className="col-3">
+                </Col>
 
-                </div>
-                <div className="col-3">
-
-                </div>
-                <div className="col-3 row">
-                    <div className="col-3">
+                <Col md="1">
+                    <div className="d-flex flex-row">
                         <DropdownButton variant="light" className="mx-lg-2 mx-0 my-lg-0 my-2" id="dropdown-basic-button" title={
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                  className="bi bi-people" viewBox="0 0 16 16">
@@ -165,8 +160,6 @@ function Home() {
                                 <Dropdown.Item>{guest.username}</Dropdown.Item>
                             ))}
                         </DropdownButton>
-                    </div>
-                    <div className="col-3">
                         <Button variant="light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setInviteNewMemberModalActive(true)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                  className="bi bi-person-add" viewBox="0 0 16 16">
@@ -180,8 +173,8 @@ function Home() {
                             <NewMemberInvite setActive={setInviteNewMemberModalActive} boardId={currentBoardId}/>
                         </MyModal>
                     </div>
-                </div>
-            </div>
+                </Col>
+            </Row>
     }
     else{
         buttons =
