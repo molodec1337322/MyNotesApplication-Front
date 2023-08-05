@@ -142,7 +142,7 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
     }
 
     return(
-        <div className="NoteCardListBackground container-fluid d-flex ow-cols-3 justify-content-center">
+        <div className="container-fluid d-flex ow-cols-3 justify-content-center">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
                     <Column notes={notes} col={column} boardId={currentBoardId} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
