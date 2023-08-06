@@ -1,6 +1,12 @@
 import React from "react";
 
-function EditNoteWindow(){
+function EditNoteWindow({noteData, onEditNoteHandler}){
+
+    return(
+        <div>
+
+        </div>
+    )
 
 }
 

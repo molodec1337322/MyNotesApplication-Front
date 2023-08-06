@@ -1,16 +1,13 @@
 import React, {useContext, useState} from "react";
 import {DragDropContext, Draggable} from "react-beautiful-dnd";
-import StrictModeDroppable from "../DroppableStrictModeForBDnD/DroppableStrictModeForBDnD";
-import NoteCard from "../NoteCard/NoteCard";
-import {Alert} from "react-bootstrap";
-import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import Column from "../Column/Column";
 import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 import {consts} from "../../config/consts";
+import "./ColumnsPlaceholder.css"
 
-function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardId}){
+function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardId, onShowNoteHandler, onEditNoteHandler}){
 
     const {auth, setAuth} = useContext(AuthContext)
 
@@ -142,10 +139,12 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
     }
 
     return(
-        <div className="container-fluid d-flex ow-cols-3 justify-content-center">
+        <div className="BoardPlaceholder position-fixed d-flex justify-content-start">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
-                    <Column notes={notes} col={column} boardId={currentBoardId} handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}></Column>
+                    <Column notes={notes} col={column} boardId={currentBoardId}
+                            handleOnDeleteNote={handleOnDeleteNote} handleOnAddNote={handleOnAddNote}
+                            onShowNoteHandler={onShowNoteHandler} onEditNoteHandler={onEditNoteHandler}></Column>
                 ))}
             </DragDropContext>
             {addCol}

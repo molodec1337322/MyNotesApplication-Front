@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import MyModal from "../components/Modal/MyModal";
 import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
@@ -11,6 +11,8 @@ import MySidebar from "../components/MySidebar/MySidebar";
 import axios from "axios";
 import {consts} from "../config/consts";
 import NewMemberInvite from "../components/NewMemeberInvite/NewMemberInvite";
+import ShowNoteWindow from "../components/NoteCard/ShowNoteWindow";
+import EditNoteWindow from "../components/NoteCard/EditNoteWindow";
 
 function Home() {
 
@@ -20,6 +22,10 @@ function Home() {
     const [loginModalActive, setLoginModalActive] = useState(false)
     const [sidebarActive, setSidebarActive] = useState(false)
     const [inviteNewMemberModalActive, setInviteNewMemberModalActive] = useState(false)
+
+    const [showNoteActive, setShowNoteActive] = useState(false)
+    const [editNoteActive, setEditNoteActive] = useState(false)
+    const [noteData, setNoteData] = useState({name: "", text: ""})
 
     const [ownedBoards, setOwnedBoards] = useState([])
     const [guestBoards, setGuestBoards] = useState([])
@@ -112,6 +118,16 @@ function Home() {
         setGuestBoards(respBoardsGuest.data)
     }
 
+    function onShowNote(note){
+        setShowNoteActive(true)
+        setNoteData(note)
+    }
+
+    function onEditNote(note){
+        setEditNoteActive(true)
+        setNoteData(note)
+    }
+
     let buttons
     let board
     let boardNav
@@ -132,7 +148,9 @@ function Home() {
             />
 
         board =
-            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes} setNotes={setNotes} currentBoardId={currentBoardId}/>
+            <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes}
+                                setNotes={setNotes} currentBoardId={currentBoardId}
+                                onShowNoteHandler={onShowNote} onEditNoteHandler={onEditNote}/>
 
         boardNav =
             <Row>
@@ -228,6 +246,12 @@ function Home() {
             <br/>
 
             <div className="Board">
+                <MyModal active={showNoteActive} setActive={setShowNoteActive}>
+                    <ShowNoteWindow note={noteData}/>
+                </MyModal>
+                <MyModal active={editNoteActive} setActive={setEditNoteActive}>
+                    <EditNoteWindow note={noteData}/>
+                </MyModal>
                 {board}
             </div>
         </div>

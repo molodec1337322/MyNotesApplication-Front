@@ -2,10 +2,13 @@ import React, {useContext, useState} from "react";
 import {Button, Card, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
 import "./NoteCard.css"
 import {AuthContext} from "../../context/AuthContext";
+import MyModal from "../Modal/MyModal";
+import ShowNoteWindow from "./ShowNoteWindow";
 
-function NoteCard({note, onDeleteNoteHandler}) {
+function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onEditNoteHandler}) {
 
     const {auth, setAuth} = useContext(AuthContext)
+    const [isActive, setIsActive] = useState(false)
 
     const [cardData, setCardData] = useState(() => {
         return{
@@ -21,22 +24,14 @@ function NoteCard({note, onDeleteNoteHandler}) {
         onDeleteNoteHandler(note.id, note.type)
     }
 
-    let delBtn
+    function showNote(e){
+        e.preventDefault()
+        setIsActive(true)
+    }
+
     let parametersButton
 
     if(auth.isBoardOwner){
-        delBtn =
-            <div className="d-flex justify-content-end">
-                <Button className="mx-lg-2 mx-0 my-lg-0 my-2 " variant="bg-transparent-danger" onClick={e => deleteNote(e)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                         className="bi bi-trash" viewBox="0 0 16 16">
-                        <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                        <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                    </svg>
-                </Button>
-            </div>
 
         parametersButton =
             <div>
@@ -52,7 +47,7 @@ function NoteCard({note, onDeleteNoteHandler}) {
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button variant="primary" className="container-fluid">Редактировать</Button>
+                            <Button onClick={() => onEditNoteHandler(cardData)} variant="primary" className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Button onClick={deleteNote} className="container-fluid" variant="outline-danger">Удалить</Button>
@@ -67,19 +62,16 @@ function NoteCard({note, onDeleteNoteHandler}) {
         <Card className="NoteCard border-0 md-3">
             <Card.Body>
                 <Row>
-                    <Col md="9">
-                        <Card.Title>{cardData.name}</Card.Title>
+                    <Col md="8">
+                        <Card.Title onClick={() => onShowNoteHandler(cardData)}>{cardData.name}</Card.Title>
                     </Col>
-                    <Col md="3">
+                    <Col md="4">
                         {parametersButton}
                     </Col>
                 </Row>
-
-                <Card.Text>
-                    {cardData.text}
-                </Card.Text>
             </Card.Body>
         </Card>
+
     )
 }
 
