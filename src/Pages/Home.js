@@ -142,7 +142,7 @@ function Home() {
 
         sidebar =
             <MySidebar active={sidebarActive} setActive={setSidebarActive}
-                       ownedBoards={ownedBoards} guestBoards={guestBoards}
+                       ownedBoards={ownedBoards} setOwnedBoards={setOwnedBoards} guestBoards={guestBoards}
                        currentBoard={currentBoardId} setCurrentBoard={setCurrentBoardId}
                        onBoardChanged={onBoardChangeHandler}
             />

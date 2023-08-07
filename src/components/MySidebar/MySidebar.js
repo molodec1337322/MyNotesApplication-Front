@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {CDBSidebar, CDBSidebarContent, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem} from "cdbreact";
 import {Accordion, Offcanvas} from "react-bootstrap";
 import MySidebarBoardButton from "./MySidebarBoardButton";
+import MySidebarAddNewBoardButton from "./MySidebarAddNewBoardButton";
 
-function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, setCurrentBoard, onBoardChanged}){
+function MySidebar({active, setActive, ownedBoards, setOwnedBoards, guestBoards, currentBoard, setCurrentBoard, onBoardChanged}){
 
     return (
         <Offcanvas show={active} onHide={() => setActive(false)}>
@@ -23,6 +23,7 @@ function MySidebar({active, setActive, ownedBoards, guestBoards, currentBoard, s
                                                       onBoardChanged={onBoardChanged} isOwner={true}
                                 />
                             ))}
+                            <MySidebarAddNewBoardButton setOwnedBoards={setOwnedBoards}/>
                         </Accordion.Body>
                     </Accordion.Item>
 
