@@ -179,6 +179,17 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
     async function handleOnEditColumn(column){
 
+        let updatedColumn = columns.findIndex(col => col.id === column.id)
+
+        updatedColumn.name = column.name
+        updatedColumn.text = column.text
+
+        let resp = await axios.put(consts.API_SERVER + "/api/v1/Columns/Update/" + column.id,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
     }
 
     let addCol
