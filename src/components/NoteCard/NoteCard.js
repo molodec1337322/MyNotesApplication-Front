@@ -5,7 +5,7 @@ import {AuthContext} from "../../context/AuthContext";
 import MyModal from "../Modal/MyModal";
 import ShowNoteWindow from "./ShowNoteWindow";
 
-function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onEditNoteHandler}) {
+function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onShowEditNoteHandler}) {
 
     const {auth, setAuth} = useContext(AuthContext)
     const [isActive, setIsActive] = useState(false)
@@ -47,7 +47,7 @@ function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onEditNoteHandl
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button onClick={() => onEditNoteHandler(cardData)} variant="primary" className="container-fluid">Редактировать</Button>
+                            <Button onClick={() => onShowEditNoteHandler(cardData)} variant="primary" className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Button onClick={deleteNote} className="container-fluid" variant="outline-danger">Удалить</Button>

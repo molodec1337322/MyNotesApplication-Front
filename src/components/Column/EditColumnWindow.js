@@ -1,27 +1,28 @@
 import React, {useState} from "react";
 import {Button, Form, Row} from "react-bootstrap";
 
-function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
+function EditColumnWindow({columnData, onEditColumnHandler, setActive}){
 
-    const [note, setNote] = useState({
-        name: noteData.name,
-        text: noteData.text,
+    const [column, setColumn] = useState(() => {
+        return{
+            name: columnData.name,
+        }
     })
     const [message, setMessage] = useState("")
 
-    function editNote(e){
+    function editColumn(e){
         e.preventDefault()
-        if(!note.name || !note.text){
+        if(!column.name){
             setMessage("Поля не могут быть пустыми!")
             return
         }
         setActive(false)
-        onEditNoteHandler(note)
+        onEditColumnHandler(column.name)
     }
 
     function changeInput(e){
         e.preventDefault()
-        setNote(prev => {
+        setColumn(prev => {
             return{
                 ...prev,
                 [e.target.name]: e.target.value,
@@ -31,17 +32,13 @@ function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
 
     return(
         <div className="form">
-            <h2>Редактирование задачи</h2>
-            <Form onSubmit={editNote}>
+            <h2>Редактирование столбца</h2>
+            <Form onSubmit={editColumn}>
 
                 <br/>
 
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Control name="name" type="text" placeholder="Заголовок" value={note.name} onChange={changeInput}/>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Control name="text" type="text" placeholder="Текст" value={note.text} onChange={changeInput}/>
+                    <Form.Control name="name" type="text" placeholder="Заголовок" value={column.name} onChange={changeInput}/>
                 </Form.Group>
 
                 <br/>
@@ -58,4 +55,4 @@ function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
 
 }
 
-export default EditNoteWindow;
+export default EditColumnWindow;

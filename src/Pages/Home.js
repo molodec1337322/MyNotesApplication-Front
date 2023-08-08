@@ -23,10 +23,6 @@ function Home() {
     const [sidebarActive, setSidebarActive] = useState(false)
     const [inviteNewMemberModalActive, setInviteNewMemberModalActive] = useState(false)
 
-    const [showNoteActive, setShowNoteActive] = useState(false)
-    const [editNoteActive, setEditNoteActive] = useState(false)
-    const [noteData, setNoteData] = useState({name: "", text: ""})
-
     const [ownedBoards, setOwnedBoards] = useState([])
     const [guestBoards, setGuestBoards] = useState([])
 
@@ -118,15 +114,6 @@ function Home() {
         setGuestBoards(respBoardsGuest.data)
     }
 
-    function onShowNote(note){
-        setShowNoteActive(true)
-        setNoteData(note)
-    }
-
-    function onEditNote(note){
-        setEditNoteActive(true)
-        setNoteData(note)
-    }
 
     let buttons
     let board
@@ -149,8 +136,7 @@ function Home() {
 
         board =
             <ColumnsPlaceholder columns={columns} setColumns={setColumns} notes={notes}
-                                setNotes={setNotes} currentBoardId={currentBoardId}
-                                onShowNoteHandler={onShowNote} onEditNoteHandler={onEditNote}/>
+                                setNotes={setNotes} currentBoardId={currentBoardId}/>
 
         boardNav =
             <Row>
@@ -246,12 +232,7 @@ function Home() {
             <br/>
 
             <div className="Board">
-                <MyModal active={showNoteActive} setActive={setShowNoteActive}>
-                    <ShowNoteWindow note={noteData}/>
-                </MyModal>
-                <MyModal active={editNoteActive} setActive={setEditNoteActive}>
-                    <EditNoteWindow note={noteData}/>
-                </MyModal>
+
                 {board}
             </div>
         </div>

@@ -7,7 +7,7 @@ import {Alert, Button, Col, Dropdown, Row} from "react-bootstrap";
 import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import {AuthContext} from "../../context/AuthContext";
 
-function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onShowNoteHandler, onEditNoteHandler}){
+function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onShowNoteHandler, onShowEditNoteHandler, onDeleteColumnHandler, onShowEditColumnHandler}){
 
     const {auth, setAuth} = useContext(AuthContext)
 
@@ -30,22 +30,22 @@ function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onSho
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button variant="primary" className="container-fluid">Редактировать</Button>
+                            <Button variant="primary" onClick={() => onShowEditColumnHandler(col)} className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <Button className="container-fluid" variant="outline-danger">Удалить</Button>
+                            <Button className="container-fluid" onClick={() => onDeleteColumnHandler(col.id)} variant="outline-danger">Удалить</Button>
                         </Dropdown.Item>
                     </Dropdown.Menu>
 
                 </Dropdown>
             </div>
 
-        if(notes.length >= 25){
+        if(notes.length >= 50){
             addCardBtn =
                 <Alert variant="warning">
                     <Alert.Heading>Ой-ой!</Alert.Heading>
                     <p>
-                        Кажется вы достигли лимита по созданию заметок. Если вы хотите создать новые, то вам придется удалить старие. Такие дела ¯\_(ツ)_/¯
+                        Кажется вы достигли лимита по созданию задач. Если вы хотите создать новые, то вам придется удалить старие. Такие дела ¯\_(ツ)_/¯
                     </p>
                 </Alert>
 
@@ -81,7 +81,7 @@ function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onSho
                                     {(provided) => (
                                         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                                             <NoteCard note={note} onDeleteNoteHandler={handleOnDeleteNote}
-                                                      onShowNoteHandler={onShowNoteHandler} onEditNoteHandler={onEditNoteHandler}/>
+                                                      onShowNoteHandler={onShowNoteHandler} onShowEditNoteHandler={onShowEditNoteHandler}/>
                                         </div>
                                     )
                                     }

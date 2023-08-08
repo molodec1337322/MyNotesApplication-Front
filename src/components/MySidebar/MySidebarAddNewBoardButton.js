@@ -14,7 +14,6 @@ function MySidebarAddNewBoardButton({setOwnedBoards}){
                 <MySidebarAddNewBoardWindow setOwnedBoards={setOwnedBoards}></MySidebarAddNewBoardWindow>
             </MyModal>
         </div>
-
     )
 
 }
