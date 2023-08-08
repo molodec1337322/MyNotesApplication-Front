@@ -5,6 +5,7 @@ function EditColumnWindow({columnData, onEditColumnHandler, setActive}){
 
     const [column, setColumn] = useState(() => {
         return{
+            id: columnData.id,
             name: columnData.name,
         }
     })

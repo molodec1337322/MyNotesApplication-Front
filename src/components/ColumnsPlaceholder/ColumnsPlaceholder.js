@@ -155,6 +155,25 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
     async function handleOnEditNote(note){
 
+        let updatedNote = notes.filter(n => {return n.id === note.id})
+
+        console.log(updatedNote)
+
+        updatedNote.name = note.name
+        updatedNote.text = note.text
+
+        let resp = await axios.put(consts.API_SERVER + "/api/v1/Columns/Update/" + note.id,
+            {headers: {
+                    Authorization: auth.token
+                }
+            })
+
+        setNotes(prev => {
+            return[
+                ...prev,
+                updatedNote
+            ]
+        })
     }
 
     function handleOnShowEditColumn(column){
@@ -182,13 +201,19 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
         let updatedColumn = columns.findIndex(col => col.id === column.id)
 
         updatedColumn.name = column.name
-        updatedColumn.text = column.text
 
         let resp = await axios.put(consts.API_SERVER + "/api/v1/Columns/Update/" + column.id,
             {headers: {
                     Authorization: auth.token
                 }
             })
+
+        setColumns(prev => {
+            return[
+                ...prev,
+                updatedColumn
+            ]
+        })
 
     }
 

@@ -4,6 +4,7 @@ import {Button, Form, Row} from "react-bootstrap";
 function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
 
     const [note, setNote] = useState({
+        id: noteData.id,
         name: noteData.name,
         text: noteData.text,
     })
