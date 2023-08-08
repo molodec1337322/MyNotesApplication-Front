@@ -40,10 +40,13 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
             reorderedItem.orderPlace = result.destination.index
             items.splice(result.destination.index, 0, reorderedItem)
 
+            items.map((note, index) => {
+                note.orderPlace = index
+            })
+
             const allItems = [...otherItems, ...items]
 
             updateOrderPlace(allItems)
-            //setNotes(allItems)
         }
         else{
             const itemsStart = Array.from(notes.filter(note => {return note.columnId.toString() === result.source.droppableId.toString()}))
@@ -57,10 +60,17 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
             reorderedItem.columnId = result.destination.droppableId
             itemsEnd.splice(result.destination.index, 0, reorderedItem)
 
+            itemsStart.map((note, index) => {
+                note.orderPlace = index
+            })
+
+            itemsEnd.map((note, index) => {
+                note.orderPlace = index
+            })
+
             const allItems = [...otherItems, ...itemsStart, ...itemsEnd]
 
             updateOrderPlace(allItems)
-            //setNotes(allItems)
         }
     }
 
@@ -155,25 +165,23 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
     async function handleOnEditNote(note){
 
-        let updatedNote = notes.filter(n => {return n.id === note.id})
-
-        console.log(updatedNote)
+        let items = Array.from(notes)
+        let itemPos = items.findIndex(n => {return n.id === note.id})
+        let [updatedNote] = items.splice(itemPos, 1)
 
         updatedNote.name = note.name
         updatedNote.text = note.text
 
-        let resp = await axios.put(consts.API_SERVER + "/api/v1/Columns/Update/" + note.id,
+        let resp = await axios.put(consts.API_SERVER + "/api/v1/Notes/Update/" + note.id,
+            updatedNote,
             {headers: {
                     Authorization: auth.token
                 }
             })
 
-        setNotes(prev => {
-            return[
-                ...prev,
-                updatedNote
-            ]
-        })
+        items.splice(itemPos, 0, resp.data)
+
+        setNotes(items)
     }
 
     function handleOnShowEditColumn(column){
@@ -198,23 +206,24 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
 
     async function handleOnEditColumn(column){
 
-        let updatedColumn = columns.findIndex(col => col.id === column.id)
+        let items = Array.from(columns)
+        let itemPos = items.findIndex(col => {return col.id === column.id})
+        let [updatedColumn] = items.splice(itemPos, 1)
+
+        console.log(updatedColumn)
 
         updatedColumn.name = column.name
 
         let resp = await axios.put(consts.API_SERVER + "/api/v1/Columns/Update/" + column.id,
+            updatedColumn,
             {headers: {
                     Authorization: auth.token
                 }
             })
 
-        setColumns(prev => {
-            return[
-                ...prev,
-                updatedColumn
-            ]
-        })
+        items.splice(itemPos, 0, updatedColumn)
 
+        setColumns(items)
     }
 
     let addCol
@@ -230,11 +239,11 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
                 <ShowNoteWindow note={noteData}/>
             </MyModal>
             <MyModal active={editNoteActive} setActive={setEditNoteActive}>
-                <EditNoteWindow noteData={noteData} setActive={setEditNoteActive} onEditNoteHandler={handleOnEditNote}/>
+                <EditNoteWindow noteData={noteData} setNoteData={setNoteData} setActive={setEditNoteActive} onEditNoteHandler={handleOnEditNote}/>
             </MyModal>
 
             <MyModal active={editColumnActive} setActive={setEditColumnActive}>
-                <EditColumnWindow columnData={columnData} setActive={setEditColumnActive} onEditColumnHandler={handleOnEditColumn}/>
+                <EditColumnWindow columnData={columnData} setColumnData={setColumnData} setActive={setEditColumnActive} onEditColumnHandler={handleOnEditColumn}/>
             </MyModal>
 
             <DragDropContext onDragEnd={handleOnDragEnd}>

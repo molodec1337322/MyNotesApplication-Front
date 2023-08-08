@@ -10,15 +10,6 @@ function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onShowEditNoteH
     const {auth, setAuth} = useContext(AuthContext)
     const [isActive, setIsActive] = useState(false)
 
-    const [cardData, setCardData] = useState(() => {
-        return{
-            id: note.id,
-            name: note.name,
-            text: note.text,
-            type: note.type
-        }
-    })
-
     function deleteNote(e){
         e.preventDefault()
         onDeleteNoteHandler(note.id, note.type)
@@ -47,7 +38,7 @@ function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onShowEditNoteH
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button onClick={() => onShowEditNoteHandler(cardData)} variant="primary" className="container-fluid">Редактировать</Button>
+                            <Button onClick={() => onShowEditNoteHandler(note)} variant="primary" className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Button onClick={deleteNote} className="container-fluid" variant="outline-danger">Удалить</Button>
@@ -63,7 +54,7 @@ function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onShowEditNoteH
             <Card.Body>
                 <Row>
                     <Col md="8">
-                        <Card.Title onClick={() => onShowNoteHandler(cardData)}>{cardData.name}</Card.Title>
+                        <Card.Title onClick={() => onShowNoteHandler(note)}>{note.name}</Card.Title>
                     </Col>
                     <Col md="4">
                         {parametersButton}

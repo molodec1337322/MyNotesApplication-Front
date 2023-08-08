@@ -1,28 +1,23 @@
 import React, {useState} from "react";
 import {Button, Form, Row} from "react-bootstrap";
 
-function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
+function EditNoteWindow({noteData, setNoteData, onEditNoteHandler, setActive}){
 
-    const [note, setNote] = useState({
-        id: noteData.id,
-        name: noteData.name,
-        text: noteData.text,
-    })
     const [message, setMessage] = useState("")
 
     function editNote(e){
         e.preventDefault()
-        if(!note.name || !note.text){
+        if(!noteData.name || !noteData.text){
             setMessage("Поля не могут быть пустыми!")
             return
         }
         setActive(false)
-        onEditNoteHandler(note)
+        onEditNoteHandler(noteData)
     }
 
     function changeInput(e){
         e.preventDefault()
-        setNote(prev => {
+        setNoteData(prev => {
             return{
                 ...prev,
                 [e.target.name]: e.target.value,
@@ -38,17 +33,17 @@ function EditNoteWindow({noteData, onEditNoteHandler, setActive}){
                 <br/>
 
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Control name="name" type="text" placeholder="Заголовок" value={note.name} onChange={changeInput}/>
+                    <Form.Control name="name" type="text" placeholder="Заголовок" value={noteData.name} onChange={changeInput}/>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Control name="text" type="text" placeholder="Текст" value={note.text} onChange={changeInput}/>
+                    <Form.Control name="text" type="text" placeholder="Текст" as="textarea" value={noteData.text} onChange={changeInput}/>
                 </Form.Group>
 
                 <br/>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Обновить</Button>
                 </div>
                 <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

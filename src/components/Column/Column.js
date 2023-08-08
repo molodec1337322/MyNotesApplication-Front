@@ -6,6 +6,8 @@ import "./Column.css"
 import {Alert, Button, Col, Dropdown, Row} from "react-bootstrap";
 import CreateNewNoteCardButton from "../NoteCard/CreateNewNoteCardButton";
 import {AuthContext} from "../../context/AuthContext";
+import axios from "axios";
+import {consts} from "../../config/consts";
 
 function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onShowNoteHandler, onShowEditNoteHandler, onDeleteColumnHandler, onShowEditColumnHandler}){
 
@@ -76,6 +78,7 @@ function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onSho
                             return note.columnId.toString() === col.id.toString()
                         })?.map((note, index) => {
                             note.orderPlace = index
+
                             return(
                                 <Draggable key={note.id} draggableId={note.id.toString()} index={note.orderPlace}>
                                     {(provided) => (

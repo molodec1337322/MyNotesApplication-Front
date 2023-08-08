@@ -84,6 +84,7 @@ function Home() {
                 ]
         }
 
+        notes.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
         columns.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
 
         setNotes(notes)
