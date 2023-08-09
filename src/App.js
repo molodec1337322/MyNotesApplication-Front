@@ -6,6 +6,7 @@ import About from "./Pages/About"
 import {AuthContext} from "./context/AuthContext";
 import axios from "axios";
 import {consts} from "./config/consts";
+import AuthReset from "./Pages/AuthReset";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/about" element={<About/>}/>
+                    <Route path="/PasswordReset/:token" element={<AuthReset/>} />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>
