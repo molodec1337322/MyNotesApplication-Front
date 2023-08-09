@@ -13,6 +13,7 @@ import {consts} from "../config/consts";
 import NewMemberInvite from "../components/NewMemeberInvite/NewMemberInvite";
 import ShowNoteWindow from "../components/NoteCard/ShowNoteWindow";
 import EditNoteWindow from "../components/NoteCard/EditNoteWindow";
+import ResetPassword from "../components/Auth/ResetPassword";
 
 function Home() {
 
@@ -20,6 +21,7 @@ function Home() {
 
     const [registrationModalActive, setRegistrationModalActive] = useState(false)
     const [loginModalActive, setLoginModalActive] = useState(false)
+    const [resetPasswordModalActive, setResetPasswordModalActive] = useState(false)
     const [sidebarActive, setSidebarActive] = useState(false)
     const [inviteNewMemberModalActive, setInviteNewMemberModalActive] = useState(false)
 
@@ -44,6 +46,11 @@ function Home() {
                 isAuth: false
             }
         })
+    }
+
+    function onOpenChangePasswordWindow(){
+        setLoginModalActive(false)
+        setResetPasswordModalActive(true)
     }
 
     async function onBoardChangeHandler(boardName, boardId, isBoardOwner){
@@ -191,7 +198,11 @@ function Home() {
 
                     <Button variant="success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setLoginModalActive(true)}>Вход</Button>
                     <MyModal active={loginModalActive} setActive={setLoginModalActive}>
-                        <Login setActive={setLoginModalActive} onAuth={onAuth}/>
+                        <Login setActive={setLoginModalActive} onAuth={onAuth} handleOnOpenPasswordChangeWindow={onOpenChangePasswordWindow}/>
+                    </MyModal>
+
+                    <MyModal active={resetPasswordModalActive} setActive={setResetPasswordModalActive}>
+                        <ResetPassword setActive={setResetPasswordModalActive}/>
                     </MyModal>
                 </Nav>
 

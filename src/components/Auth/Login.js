@@ -5,7 +5,7 @@ import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
-function Login({setActive, onAuth}){
+function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
     const {auth, setAuth} = useContext(AuthContext)
 
     const [login, setLogin] = useState(() => {
@@ -90,12 +90,15 @@ function Login({setActive, onAuth}){
                     <FormControl name="password" type="password" placeholder="Пароль" value={login.password} onChange={changeInputLogin}/>
                 </Form.Group>
 
+                <div className="d-flex justify-content-end">
+                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="link" onClick={handleOnOpenPasswordChangeWindow}>Забыли пароль?</Button>
+                </div>
+
                 <br/>
 
                 <div className="d-flex justify-content-center">
                     <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Войти</Button>
                 </div>
-
 
                 <div  className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>
