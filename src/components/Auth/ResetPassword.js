@@ -28,11 +28,8 @@ function ResetPassword({setActive}){
 
         let resp = await axios.post(consts.API_SERVER + "/api/v1/Auth/ResetPassword",
             {
-                email: email
+                email: email.email
             })
-
-
-
     }
 
     return (

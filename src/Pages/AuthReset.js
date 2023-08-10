@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import MyModal from "../components/Modal/MyModal";
 import {Button, Form, FormControl, Row} from "react-bootstrap";
+import axios from "axios";
+import {consts} from "../config/consts";
 
 function AuthReset(){
 
@@ -31,6 +33,11 @@ function AuthReset(){
         if(passwords.password1 !== passwords.password2){
             setMessage("Пароли не совпадают")
         }
+
+        let resp = await axios.put(consts.API_SERVER + "/api/v1/Auth/NewPasswordConfirm/" + token,
+            {
+                password: passwords.password1
+            })
 
         navigate("/")
     }

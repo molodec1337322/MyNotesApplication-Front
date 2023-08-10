@@ -43,9 +43,18 @@ function Home() {
                 ...prev,
                 token: null,
                 username: null,
-                isAuth: false
+                isAuth: false,
+                isBoardOwner: false
             }
         })
+        setOwnedBoards([])
+        setGuestBoards([])
+        setOwnersBoardUsers([])
+        setGuestBoardUsers([])
+        setCurrentBoardName("")
+        setCurrentBoardId(-1)
+        setColumns([])
+        setNotes([])
     }
 
     function onOpenChangePasswordWindow(){

@@ -64,17 +64,15 @@ function Registration(){
                 password: registration.password,
             }).then(res => {
                 if(res.data == true){
-                    //alert("Please, check your email for confirmation mail to validate your account")
                     setMessage("На вашу почту было отправлено письмо для подтверждения аккаунта")
                 }
-                else if(res.status == 409){
-                    //alert("Email or username already in use")
+            }).catch((ex) => {
+                if(ex.response.status == 409){
                     setMessage("Имя пользователя или почта уже заняты")
                 }
-            }).catch((ex) => {
-                console.log(ex)
-                //alert("An error occurred on the server")
-                setMessage("Во время выполнения запроса произошла ошибка")
+                else{
+                    setMessage("Во время выполнения запроса произошла ошибка")
+                }
             })
         }
     }
