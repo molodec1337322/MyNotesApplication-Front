@@ -181,7 +181,7 @@ function Home() {
                                 <Dropdown.Item>{guest.username}</Dropdown.Item>
                             ))}
                         </DropdownButton>
-                        <Button variant="light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setInviteNewMemberModalActive(true)}>
+                        <Button variant="light" className="mx-lg-2 mx-0 my-lg-0 my-2" disabled={auth.isBoardOwner? false : true} onClick={() => setInviteNewMemberModalActive(true)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                  className="bi bi-person-add" viewBox="0 0 16 16">
                                 <path
