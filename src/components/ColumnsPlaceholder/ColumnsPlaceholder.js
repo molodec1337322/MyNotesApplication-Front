@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import {DragDropContext, Draggable} from "react-beautiful-dnd";
 import Column from "../Column/Column";
-import CreateNewColumnBtn from "../Column/CreateNewColumnBtn";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 import {consts} from "../../config/consts";

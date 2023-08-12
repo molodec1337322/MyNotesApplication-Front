@@ -64,6 +64,8 @@ function Home() {
 
     async function onBoardChangeHandler(boardName, boardId, isBoardOwner){
 
+        console.log(boardName)
+
         let respColumns = await axios.get(consts.API_SERVER + "/api/v1/Columns/FromBoard/" + boardId,
             {headers: {
                 Authorization: auth.token
@@ -114,6 +116,10 @@ function Home() {
         })
     }
 
+    function changeBoard(boardId){
+        setCurrentBoardId(boardId)
+    }
+
     async function onAuth(token){
         let respBoardsOwned = await axios.get(consts.API_SERVER + "/api/v1/Boards/AllOwned",
             {headers: {
@@ -161,7 +167,9 @@ function Home() {
 
                                 <div>
                                     {ownedBoards?.map((board, index) => (
-                                        <ul><Button variant="light" onClick={() => onBoardChangeHandler(board.name, board.id, true)}>{board.name}</Button></ul>
+                                        <li><Button className="BtnBoardsList" variant="light" onClick={() => {
+                                            changeBoard(board.id)
+                                            onBoardChangeHandler(board.name, board.id, true)}}>{board.name}</Button></li>
                                     ))}
                                 </div>
                             </div>
@@ -173,7 +181,9 @@ function Home() {
 
                                 <div>
                                     {guestBoards?.map((board, index) => (
-                                        <Button variant="light" onClick={() => onBoardChangeHandler(board.name, board.id, false)}>{board.name}</Button>
+                                        <li><Button className="BtnBoardsList" variant="light" onClick={() => {
+                                            changeBoard(board.id)
+                                            onBoardChangeHandler(board.name, board.id, false)}}>{board.name}</Button></li>
                                     ))}
                                 </div>
                             </div>
@@ -278,6 +288,7 @@ function Home() {
             {sidebar}
 
             <br/>
+
             <div className="BoardNav container">
                 {boardNav}
             </div>
