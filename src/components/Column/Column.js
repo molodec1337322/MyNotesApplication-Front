@@ -32,7 +32,7 @@ function Column({notes, col, boardId, handleOnDeleteNote, handleOnAddNote, onSho
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button variant="primary" onClick={() => onShowEditColumnHandler(col)} className="container-fluid">Редактировать</Button>
+                            <Button variant="outline-dark" onClick={() => onShowEditColumnHandler(col)} className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Button className="container-fluid" onClick={() => onDeleteColumnHandler(col.id)} variant="outline-danger">Удалить</Button>

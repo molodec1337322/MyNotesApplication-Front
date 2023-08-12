@@ -10,6 +10,8 @@ import MyModal from "../Modal/MyModal";
 import ShowNoteWindow from "../NoteCard/ShowNoteWindow";
 import EditNoteWindow from "../NoteCard/EditNoteWindow";
 import EditColumnWindow from "../Column/EditColumnWindow";
+import CreateNewColumnWindow from "../Column/CreateNewColumnWindow";
+import {Button} from "react-bootstrap";
 
 function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardId}){
 
@@ -20,6 +22,7 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
     const [noteData, setNoteData] = useState({id: -1, name: "", text: ""})
 
     const [editColumnActive, setEditColumnActive] = useState(false)
+    const [newColumnActive, setNewColumnActive] = useState(false)
     const [columnData, setColumnData] = useState({id: -1, name: ""})
 
     function handleOnDragEnd(result){
@@ -229,7 +232,13 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
     let addCol
     if(auth.isBoardOwner){
         addCol =
-            <CreateNewColumnBtn onAddColumnHandler={handleOnAddColumn}/>
+            <Button variant="outline-success" className="rounded-circle btn-lg" onClick={() => setNewColumnActive(true)}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="46" fill="currentColor"
+                     className="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+            </Button>
     }
 
     return(
@@ -246,6 +255,10 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
                 <EditColumnWindow columnData={columnData} setColumnData={setColumnData} setActive={setEditColumnActive} onEditColumnHandler={handleOnEditColumn}/>
             </MyModal>
 
+            <MyModal active={newColumnActive} setActive={setNewColumnActive}>
+                <CreateNewColumnWindow setActive={setNewColumnActive} onAddColumnHandler={handleOnAddColumn}/>
+            </MyModal>
+
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {columns?.map((column, index) => (
                     <Column notes={notes} col={column} boardId={currentBoardId}
@@ -254,7 +267,14 @@ function ColumnsPlaceholder({columns, setColumns, notes, setNotes, currentBoardI
                             onShowEditColumnHandler={handleOnShowEditColumn} onDeleteColumnHandler={handleOnDeleteColumn}></Column>
                 ))}
             </DragDropContext>
-            {addCol}
+            <div className="d-inline-block ColumnsAddBtn d-flex justify-content-center">
+                <div className="col-md-3">
+                    <div className="position-absolute top-50 translate-middle">
+                        {addCol}
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }

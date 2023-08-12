@@ -161,7 +161,7 @@ function Home() {
 
                                 <div>
                                     {ownedBoards?.map((board, index) => (
-                                        <ul><Button variant="light" onClick={() => {onBoardChangeHandler(board.name, board.id, true)}}>{board.name}</Button></ul>
+                                        <ul><Button variant="light" onClick={() => onBoardChangeHandler(board.name, board.id, true)}>{board.name}</Button></ul>
                                     ))}
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ function Home() {
 
                                 <div>
                                     {guestBoards?.map((board, index) => (
-                                        <Button variant="light" onClick={() => {onBoardChangeHandler(board.name, board.id, false)}}>{board.name}</Button>
+                                        <Button variant="light" onClick={() => onBoardChangeHandler(board.name, board.id, false)}>{board.name}</Button>
                                     ))}
                                 </div>
                             </div>

@@ -38,7 +38,7 @@ function NoteCard({note, onDeleteNoteHandler, onShowNoteHandler, onShowEditNoteH
 
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <Button onClick={() => onShowEditNoteHandler(note)} variant="primary" className="container-fluid">Редактировать</Button>
+                            <Button onClick={() => onShowEditNoteHandler(note)} variant="outline-dark" className="container-fluid">Редактировать</Button>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Button onClick={deleteNote} className="container-fluid" variant="outline-danger">Удалить</Button>
