@@ -4,16 +4,14 @@ import Registration from "../components/Auth/Registration";
 import Login from "../components/Auth/Login";
 import {Button, Col, Container, Dropdown, DropdownButton, Form, Nav, Navbar, Offcanvas, Row} from "react-bootstrap";
 import {AuthContext} from "../context/AuthContext";
-
 import "./Home.css"
 import ColumnsPlaceholder from "../components/ColumnsPlaceholder/ColumnsPlaceholder";
 import MySidebar from "../components/MySidebar/MySidebar";
 import axios from "axios";
 import {consts} from "../config/consts";
 import NewMemberInvite from "../components/NewMemeberInvite/NewMemberInvite";
-import ShowNoteWindow from "../components/NoteCard/ShowNoteWindow";
-import EditNoteWindow from "../components/NoteCard/EditNoteWindow";
 import ResetPassword from "../components/Auth/ResetPassword";
+import EditBoardWindow from "../components/Board/EditBoardWindow";
 
 function Home() {
 
@@ -138,6 +136,10 @@ function Home() {
         setGuestBoards(respBoardsGuest.data)
     }
 
+    async function deleteCurrentBoard(){
+
+    }
+
 
     let buttons
     let board
@@ -216,15 +218,19 @@ function Home() {
 
                                 <Dropdown.Menu>
                                     <Dropdown.Item>
-                                        <Button  variant="outline-dark" className="container-fluid">Редактировать</Button>
+                                        <Button onClick={()=> setEditBoardActive(true)} variant="outline-dark" className="container-fluid">Редактировать</Button>
                                     </Dropdown.Item>
                                     <Dropdown.Item>
-                                        <Button className="container-fluid" variant="outline-danger">Удалить</Button>
+                                        <Button onClick={deleteCurrentBoard} className="container-fluid" variant="outline-danger">Удалить</Button>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
 
                             </Dropdown>
+                            <MyModal active={editBoardActive} setActive={setEditBoardActive}>
+                                <EditBoardWindow setActive={setInviteNewMemberModalActive} boardId={currentBoardId}/>
+                            </MyModal>
                         </div>
+
                     </Col>
 
                     <Col md="1">
