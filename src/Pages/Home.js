@@ -35,6 +35,9 @@ function Home() {
     const [columns, setColumns] = useState([])
     const [notes, setNotes] = useState([])
 
+    UseInterval(() => {
+        //code here
+    }, 1000 * 1)
 
     function logout(){
         setAuth(prev => {
