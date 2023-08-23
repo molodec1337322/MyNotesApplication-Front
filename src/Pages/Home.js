@@ -12,6 +12,7 @@ import {consts} from "../config/consts";
 import NewMemberInvite from "../components/NewMemeberInvite/NewMemberInvite";
 import ResetPassword from "../components/Auth/ResetPassword";
 import EditBoardWindow from "../components/Board/EditBoardWindow";
+import {UseInterval} from "../components/UseInterval/UseInterval";
 
 function Home() {
 
@@ -36,7 +37,9 @@ function Home() {
     const [notes, setNotes] = useState([])
 
     UseInterval(() => {
-        //code here
+        if(currentBoardId !== -1){
+
+        }
     }, 1000 * 1)
 
     function logout(){
