@@ -136,6 +136,10 @@ function Home() {
         setGuestBoards(respBoardsGuest.data)
     }
 
+    async function onEditBoard(boardId, boardName){
+
+    }
+
     async function deleteCurrentBoard(){
 
     }
@@ -227,7 +231,7 @@ function Home() {
 
                             </Dropdown>
                             <MyModal active={editBoardActive} setActive={setEditBoardActive}>
-                                <EditBoardWindow setActive={setInviteNewMemberModalActive} boardId={currentBoardId}/>
+                                <EditBoardWindow onEditBoardHandler={onEditBoard} boardName={currentBoardName} setBoardName={setCurrentBoardName} setActive={setEditBoardActive} boardId={currentBoardId}/>
                             </MyModal>
                         </div>
 
@@ -263,7 +267,7 @@ function Home() {
                                 </svg>
                             </Button>
                             <MyModal active={inviteNewMemberModalActive} setActive={setInviteNewMemberModalActive}>
-                                <NewMemberInvite setActive={setInviteNewMemberModalActive} boardId={currentBoardId}/>
+                                <NewMemberInvite setActive={setInviteNewMemberModalActive} boardId={currentBoardId} />
                             </MyModal>
                         </div>
                     </Col>
