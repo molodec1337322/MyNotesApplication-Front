@@ -69,56 +69,60 @@ function Home() {
 
     async function onBoardChangeHandler(boardName, boardId, isBoardOwner){
 
-        console.log(boardName)
+        try{
+            let respColumns = await axios.get(consts.API_SERVER + "/api/v1/Columns/FromBoard/" + boardId,
+                {headers: {
+                        Authorization: auth.token
+                    }
+                })
 
-        let respColumns = await axios.get(consts.API_SERVER + "/api/v1/Columns/FromBoard/" + boardId,
-            {headers: {
-                Authorization: auth.token
-                }
-            })
+            let respOwners = await axios.get(consts.API_SERVER + "/api/v1/Boards/Owners/" + boardId,
+                {headers: {
+                        Authorization: auth.token
+                    }
+                })
+            let respGuest = await axios.get(consts.API_SERVER + "/api/v1/Boards/Guests/" + boardId,
+                {headers: {
+                        Authorization: auth.token
+                    }
+                })
 
-        let respOwners = await axios.get(consts.API_SERVER + "/api/v1/Boards/Owners/" + boardId,
-            {headers: {
-                    Authorization: auth.token
-                }
-            })
-        let respGuest = await axios.get(consts.API_SERVER + "/api/v1/Boards/Guests/" + boardId,
-            {headers: {
-                    Authorization: auth.token
-                }
-            })
+            setOwnersBoardUsers(respOwners.data)
+            setGuestBoardUsers(respGuest.data)
 
-        setOwnersBoardUsers(respOwners.data)
-        setGuestBoardUsers(respGuest.data)
+            setCurrentBoardName(boardName)
+            let columns = []
+            let notes = []
 
-        setCurrentBoardName(boardName)
-        let columns = []
-        let notes = []
-
-        for (let i = 0; i < respColumns.data.length; i++){
-            notes = [...notes, ...respColumns.data[i].notes]
-            columns = [
-                ...columns,
-                {
-                    id: respColumns.data[i].id,
-                    name: respColumns.data[i].name,
-                    orderPlace: respColumns.data[i].orderPlace
-                }
+            for (let i = 0; i < respColumns.data.length; i++){
+                notes = [...notes, ...respColumns.data[i].notes]
+                columns = [
+                    ...columns,
+                    {
+                        id: respColumns.data[i].id,
+                        name: respColumns.data[i].name,
+                        orderPlace: respColumns.data[i].orderPlace
+                    }
                 ]
+            }
+
+            notes.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
+            columns.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
+
+            setNotes(notes)
+            setColumns(columns)
+
+            setAuth(prev => {
+                return{
+                    ...prev,
+                    isBoardOwner: isBoardOwner,
+                }
+            })
+        }
+        catch (e){
+            console.log(e)
         }
 
-        notes.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
-        columns.sort((a, b) => parseFloat(a.orderPlace) - parseFloat(b.orderPlace))
-
-        setNotes(notes)
-        setColumns(columns)
-
-        setAuth(prev => {
-            return{
-                ...prev,
-                isBoardOwner: isBoardOwner,
-            }
-        })
     }
 
     function changeBoard(boardId){
