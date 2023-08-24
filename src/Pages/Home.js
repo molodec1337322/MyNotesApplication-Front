@@ -38,7 +38,7 @@ function Home() {
 
     UseInterval(() => {
         if(currentBoardId !== -1){
-
+            onBoardChangeHandler(currentBoardName, currentBoardId, auth.isBoardOwner)
         }
     }, 1000 * 1)
 
@@ -142,8 +142,9 @@ function Home() {
         setGuestBoards(respBoardsGuest.data)
     }
 
-    async function onEditBoard(boardId, boardName){
-
+    async function onEditBoard(boardId, boardName, setLoading){
+        setLoading(true)
+        setLoading(false)
     }
 
     async function deleteCurrentBoard(){
@@ -314,7 +315,7 @@ function Home() {
                         <Button variant="Light" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setSidebarActive(true)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                  className="bi bi-list" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
+                                <path fillRule="evenodd"
                                       d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                             </svg>
                         </Button>

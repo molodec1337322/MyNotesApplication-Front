@@ -4,6 +4,7 @@ import {Button, Form, Row} from "react-bootstrap";
 function EditBoardWindow({boardId, boardName, setBoardName, onEditBoardHandler, setActive}){
 
     const [message, setMessage] = useState("")
+    const [loading, setLoading] = useState(false)
 
     function editBoard(e){
         e.preventDefault()
@@ -12,7 +13,7 @@ function EditBoardWindow({boardId, boardName, setBoardName, onEditBoardHandler, 
             return
         }
         setActive(false)
-        onEditBoardHandler(boardId, boardName)
+        onEditBoardHandler(boardId, boardName, setLoading)
     }
 
     function changeInput(e){

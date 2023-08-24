@@ -4,6 +4,7 @@ import validator from 'validator';
 import {consts} from "../../config/consts";
 import {AuthContext} from "../../context/AuthContext";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
+import {ClipLoader} from "react-spinners";
 
 function Registration(){
     const {auth, setAuth} = useContext(AuthContext)
@@ -17,6 +18,7 @@ function Registration(){
         }
     })
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     function changeInputRegister(e){
         e.persist()
@@ -28,12 +30,11 @@ function Registration(){
         })
     }
 
-    function showServerResponse(){
-
-    }
-
     function sendRegistrationData(e){
         e.preventDefault()
+
+
+
         if(registration.email.length <= 3){
             //alert("Поле с электронной почтой не должно быть пустым")
             setMessage("Поле с электронной почтой не должно быть пустым")
@@ -58,15 +59,19 @@ function Registration(){
 
          */
         else{
+            setLoading(true)
             axios.post(consts.API_SERVER + "/api/v1/Auth/Registration", {
                 username: registration.username,
                 email: registration.email,
                 password: registration.password,
             }).then(res => {
+                setLoading(false)
                 if(res.data == true){
                     setMessage("На вашу почту было отправлено письмо для подтверждения аккаунта")
                 }
             }).catch((ex) => {
+                setLoading(false)
+                console.log(ex)
                 if(ex.response.status == 409){
                     setMessage("Имя пользователя или почта уже заняты")
                 }
@@ -75,6 +80,21 @@ function Registration(){
                 }
             })
         }
+
+    }
+
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Зарегестрироваться</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
     }
 
     return (
@@ -102,7 +122,7 @@ function Registration(){
                 <br/>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Зарегестрироваться</Button>
+                    {button}
                 </div>
 
                 <div className="d-flex justify-content-center">

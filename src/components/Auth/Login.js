@@ -4,6 +4,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import {ClipLoader} from "react-spinners";
 
 function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
     const {auth, setAuth} = useContext(AuthContext)
@@ -15,6 +16,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
         }
     })
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     function changeInputLogin(e){
         e.persist()
@@ -41,6 +43,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
             setMessage("Вы не ввели пароль")
         }
         else{
+            setLoading(true)
             axios.post(consts.API_SERVER + "/api/v1/Auth/Login", {
                 Email: login.email,
                 Password: login.password,
@@ -50,6 +53,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
                     "Access-Control-Allow-Origin": "*",
                 }
             }).then(res => {
+                setLoading(false)
                 if(typeof res.data !== "undefined"){
                     setAuth(prev => {
                         return{
@@ -63,6 +67,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
                     setActive(false)
                 }
             }).catch(e => {
+                setLoading(false)
                 if(typeof e.response !== "undefined"){
                     if(e.response.status === 404){
                         setMessage("Почта или пароль введены неверно")
@@ -74,6 +79,20 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
                 }
             })
         }
+    }
+
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Войти</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
     }
 
     return (
@@ -97,7 +116,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
                 <br/>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Войти</Button>
+                    {button}
                 </div>
 
                 <div  className="d-flex justify-content-center">
