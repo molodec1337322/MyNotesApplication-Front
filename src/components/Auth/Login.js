@@ -44,6 +44,7 @@ function Login({setActive, onAuth, handleOnOpenPasswordChangeWindow}){
         }
         else{
             setLoading(true)
+            setMessage("")
             axios.post(consts.API_SERVER + "/api/v1/Auth/Login", {
                 Email: login.email,
                 Password: login.password,

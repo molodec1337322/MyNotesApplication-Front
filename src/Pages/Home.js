@@ -338,7 +338,6 @@ function Home() {
             <br/>
 
             <div className="Board">
-
                 {board}
             </div>
         </div>

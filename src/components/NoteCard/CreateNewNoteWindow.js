@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
+import {ClipLoader} from "react-spinners";
 
 function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
 
@@ -10,6 +11,7 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
         }
     })
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     function createNewNote(e){
         e.preventDefault()
@@ -17,8 +19,20 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
             setMessage("Поля не могут быть пустыми!")
             return
         }
-        setActive(false)
+
+        setMessage("")
+        setLoading(true)
+
         onAddNoteHandler(newNote.title, newNote.text, columnId.toString(), boardId.toString())
+
+        setLoading(false)
+        setActive(false)
+        setNewNote(() => {
+            return{
+                title: "",
+                text: ""
+            }
+        })
     }
 
     function changeInput(e){
@@ -29,6 +43,20 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
                 [e.target.name]: e.target.value,
             }
         })
+    }
+
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
     }
 
     return(
@@ -44,7 +72,7 @@ function CreateNewNoteWindow({setActive, onAddNoteHandler, columnId, boardId}){
                 </Form.Group>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+                    {button}
                 </div>
                 <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

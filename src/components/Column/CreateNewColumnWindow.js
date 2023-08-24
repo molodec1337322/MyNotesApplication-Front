@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Button, Form, Row} from "react-bootstrap";
+import {ClipLoader} from "react-spinners";
 
 function CreateNewColumnWindow({setActive, onAddColumnHandler}){
 
@@ -9,6 +10,7 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
         }
     })
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     function createNewColumn(e){
         e.preventDefault()
@@ -16,8 +18,19 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
             setMessage("Поля не могут быть пустыми!")
             return
         }
-        setActive(false)
+
+        setMessage("")
+        setLoading(true)
+
         onAddColumnHandler(newColumn.name)
+        setLoading(false)
+        setActive(false)
+        setNewColumn(() => {
+            return{
+                name: "",
+            }
+        })
+
     }
 
     function changeInput(e){
@@ -30,6 +43,20 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
         })
     }
 
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
+    }
+
     return(
         <div className="form">
             <h2>Новый столбец</h2>
@@ -39,7 +66,7 @@ function CreateNewColumnWindow({setActive, onAddColumnHandler}){
                 </Form.Group>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+                    {button}
                 </div>
                 <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

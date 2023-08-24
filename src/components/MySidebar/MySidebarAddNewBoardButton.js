@@ -11,7 +11,7 @@ function MySidebarAddNewBoardButton({setOwnedBoards}){
         <div>
             <Button variant="outline-success" className="mx-lg-2 mx-0 my-lg-0 my-2" onClick={() => setActive(true)}>Новая доска</Button>
             <MyModal active={active} setActive={setActive}>
-                <MySidebarAddNewBoardWindow setOwnedBoards={setOwnedBoards}></MySidebarAddNewBoardWindow>
+                <MySidebarAddNewBoardWindow setModalActive={setActive} setOwnedBoards={setOwnedBoards}></MySidebarAddNewBoardWindow>
             </MyModal>
         </div>
     )

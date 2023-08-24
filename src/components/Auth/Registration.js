@@ -33,8 +33,6 @@ function Registration(){
     function sendRegistrationData(e){
         e.preventDefault()
 
-
-
         if(registration.email.length <= 3){
             //alert("Поле с электронной почтой не должно быть пустым")
             setMessage("Поле с электронной почтой не должно быть пустым")
@@ -51,15 +49,9 @@ function Registration(){
             //alert("Repeated password incorrectly")
             setMessage("Пароли не совпадают")
         }
-        /*
-        else if(!validator.isStrongPassword(registration.password, {minSymbols: 2})){
-            //alert("Password must consist of one lowercase, uppercase letter and number, at least 2 characters")
-            setMessage("Пароль должен содержать как минимум одну заглавную букву, одну строчную и одну цифру")
-        }
-
-         */
         else{
             setLoading(true)
+            setMessage("")
             axios.post(consts.API_SERVER + "/api/v1/Auth/Registration", {
                 username: registration.username,
                 email: registration.email,

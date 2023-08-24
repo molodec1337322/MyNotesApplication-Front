@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import {Button, Form, Row} from "react-bootstrap";
+import {ClipLoader} from "react-spinners";
 
 function EditColumnWindow({columnData, setColumnData, onEditColumnHandler, setActive}){
 
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     function editColumn(e){
         e.preventDefault()
@@ -11,8 +13,13 @@ function EditColumnWindow({columnData, setColumnData, onEditColumnHandler, setAc
             setMessage("Поля не могут быть пустыми!")
             return
         }
-        setActive(false)
+        setMessage("")
+        setLoading(true)
+
         onEditColumnHandler(columnData)
+
+        setLoading(false)
+        setActive(false)
     }
 
     function changeInput(e){
@@ -23,6 +30,20 @@ function EditColumnWindow({columnData, setColumnData, onEditColumnHandler, setAc
                 [e.target.name]: e.target.value,
             }
         })
+    }
+
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Обновить</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
     }
 
     return(
@@ -39,7 +60,7 @@ function EditColumnWindow({columnData, setColumnData, onEditColumnHandler, setAc
                 <br/>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Обновить</Button>
+                    {button}
                 </div>
                 <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

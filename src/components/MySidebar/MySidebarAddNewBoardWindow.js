@@ -3,9 +3,10 @@ import {Button, Form, Row} from "react-bootstrap";
 import axios from "axios";
 import {consts} from "../../config/consts";
 import {AuthContext} from "../../context/AuthContext";
+import {ClipLoader} from "react-spinners";
 
 
-function MySidebarAddNewBoardWindow({setOwnedBoards}){
+function MySidebarAddNewBoardWindow({setOwnedBoards, setModalActive}){
 
     const {auth, setAuth} = useContext(AuthContext)
 
@@ -16,6 +17,7 @@ function MySidebarAddNewBoardWindow({setOwnedBoards}){
     })
 
     const [message, setMessage] = useState("")
+    const [isLoading, setLoading] = useState(false)
 
     async function createNewBoard(e){
         e.preventDefault()
@@ -23,6 +25,8 @@ function MySidebarAddNewBoardWindow({setOwnedBoards}){
             setMessage("Поля не могут быть пустыми!")
             return
         }
+
+        setLoading(true)
 
         let resp= await axios.post(consts.API_SERVER + "/api/v1/Boards/Create",
             newBoard,
@@ -37,6 +41,14 @@ function MySidebarAddNewBoardWindow({setOwnedBoards}){
                 resp.data
             ]
         })
+
+        setNewBoard(() => {
+            return{
+                name: ""
+            }
+        })
+        setLoading(false)
+        setModalActive(false)
     }
 
     function changeInput(e){
@@ -47,6 +59,20 @@ function MySidebarAddNewBoardWindow({setOwnedBoards}){
                 [e.target.name]: e.target.value,
             }
         })
+    }
+
+    let button
+
+    if(!isLoading){
+        button = <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+    }
+    else{
+        button = <ClipLoader
+            color="#757575"
+            loading={isLoading}
+            size={38}
+            aria-label="Loading Spinner"
+        />
     }
 
     return(
@@ -63,7 +89,7 @@ function MySidebarAddNewBoardWindow({setOwnedBoards}){
                 <br/>
 
                 <div className="d-flex justify-content-center">
-                    <Button className="mx-lg-2 mx-0 my-lg-0 my-2" variant="success" type="submit">Добавить</Button>
+                    {button}
                 </div>
                 <div className="d-flex justify-content-center">
                     <p id="showErrorMessage">{message}</p>

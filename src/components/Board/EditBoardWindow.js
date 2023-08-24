@@ -12,8 +12,13 @@ function EditBoardWindow({boardId, boardName, setBoardName, onEditBoardHandler, 
             setMessage("Поле не может быть пустыми!")
             return
         }
-        setActive(false)
+        setMessage("")
+        setLoading(true)
+
         onEditBoardHandler(boardId, boardName, setLoading)
+
+        setLoading(false)
+        setActive(false)
     }
 
     function changeInput(e){
